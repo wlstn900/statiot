@@ -1,0 +1,8 @@
+#area-chart,
+#line-chart,
+#bar-chart,
+#stacked,
+#pie-chart{
+  min-height: 200px;
+  background: rgba(114,219,219,0.6);
+}
