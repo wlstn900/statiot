@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page session="false" %>
 
 <!DOCTYPE html>
@@ -61,7 +63,8 @@
 	<!-- bootstrap css -->
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
     
-	
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!-- [if lt IE 9]>
 		<script src="<c:url value="/resources/html5shiv/html5shiv.min.js"/>">
 		<script src="<c:url value="/resources/respond/respond.min.js"/>">
@@ -71,7 +74,7 @@
 	<div class="login">
 		<h1>STATIOT</h1>
 		<h3>Status Station in IoT</h3>
-		<form role="form" name="loginform" id="loginform" action="/subwayManagementSystem/doLogin" method="post">
+		<form role="form" name="loginform" id="loginform" action="/statiot/doLogin" method="post">
 			<div class="form-group">
 				<label for="user_login" class="sr-only">username</label>
 				<input type="text" name="id" id="id" class="form-control" placeholder="username">
