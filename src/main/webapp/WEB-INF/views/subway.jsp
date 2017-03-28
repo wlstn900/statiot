@@ -31,9 +31,9 @@
             /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
         }
         .morris-hover{position:absolute;z-index:1000}
-        .morris-hover.morris-default-style{border-radius:10px;padding:6px;color:#666;background:rgba(0,0,0,0.6);font-family:sans-serif;font-size:16px;text-align:center}
-        .morris-hover.morris-default-style .morris-hover-row-label{font-weight:bold;margin:0.25em 0;font-size: 20px;}
-        .morris-hover.morris-default-style .morris-hover-point{white-space:nowrap;margin:0.1em 0}
+        .morris-hover.morris-default-style{border-radius:10px;padding:6px;color:white;background:rgba(0,0,0,0.6);font-family:sans-serif;font-size:16px;text-align:center}
+        .morris-hover.morris-default-style .morris-hover-row-label{font-weight:bold;margin:0.25em 0;font-size:20px}
+        .morris-hover.morris-default-style .morris-hover-point{font-weight:bold;white-space:nowrap;margin:0.1em 0}
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -52,19 +52,13 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>  
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">MRI</a>
+                <a class="navbar-brand" href="#">STATIOT</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Log out</a>
+                        <a href="#" full-right>Log out</a>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -78,7 +72,7 @@
         <div class="row">
             <div class="col-sm-3 text-center">
                 <h3 class="text-center">
-                    Temperature
+                    TEMPERATURE
                 </h3>
                 <div id="line-chart"></div>
             </div>
