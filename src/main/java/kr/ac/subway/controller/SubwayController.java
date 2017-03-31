@@ -26,6 +26,7 @@ import kr.ac.subway.model.Subway;
 import kr.ac.subway.service.SubwayService;
 
 @Controller
+
 public class SubwayController {
 
 	private String temperature = "";
@@ -125,10 +126,12 @@ public class SubwayController {
 	@RequestMapping("/subway")
 	public String DoMangement(Model model)
 	{
-		List<Subway> subwayInfo = service.getCurrent();
+		 List<Subway> subwayInfo = service.getCurrent();
 		 System.out.println("³¥³¥");
-		 model.addAttribute("subwayInfo", subwayInfo);
 		 
+		 for(int i=0;i<5;i++){
+			 model.addAttribute("subwayInfo"+i, subwayInfo.get(i));
+		 }
 		 return "subway";
 	}
 

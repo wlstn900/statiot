@@ -93,7 +93,66 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.0/morris.min.js'></script>
 
-    <script src="<c:url value="/resources/js/index.js"/>"></script>
+    <script>
+    
+    var today=new Date();
+    var time=today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var temp = new Array(5);
+    var humid = new Array(5);
+    
+    temp[0]="${subwayInfo0.temperature}";
+    temp[1]="${subwayInfo1.temperature}";
+    temp[2]="${subwayInfo2.temperature}";
+    temp[3]="${subwayInfo3.temperature}";
+    temp[4]="${subwayInfo4.temperature}";
+    
+    humid[0]="${subwayInfo0.humidity}";
+    humid[1]="${subwayInfo1.humidity}";
+    humid[2]="${subwayInfo2.humidity}";
+    humid[3]="${subwayInfo3.humidity}";
+    humid[4]="${subwayInfo4.humidity}";
+
+    var data = [
+      { x: time, a: temp[0], b: humid[0]},
+      { x: time, a: temp[1], b: humid[1]},
+      { x: time, a: temp[2], b: humid[2]},
+      { x: time, a: temp[3], b: humid[3]},
+      { x: time, a: temp[4], b: humid[4]}
+    ],
+    config = {
+      parseTime: false,
+      data: data,
+      xkey: 'x',
+      ykeys: ['a', 'b'],
+      labels: ['Temperature', 'Humidity'],
+      fillOpacity: 0.6,
+      hideHover: 'auto',
+      behaveLikeLine: true,
+      resize: true,
+      pointFillColors: ['white'],
+      pointStrokeColors: ['white'],
+      lineColors: ['red','blue']
+    };
+
+    /* config.element = 'area-chart';
+    Morris.Area(config); */
+    config.element = 'line-chart';
+    Morris.Line(config);
+    /* config.element = 'bar-chart';
+    Morris.Bar(config);
+    config.element = 'stacked';
+    config.stacked = true;
+    Morris.Bar(config);
+    Morris.Donut({
+      element: 'pie-chart',
+      data: [
+        {label: "Friends", value: 30},
+        {label: "Allies", value: 15},
+        {label: "Enemies", value: 45},
+        {label: "Neutral", value: 10}
+      ]
+    }); */
+    </script>
 
 </body>
 
