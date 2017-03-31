@@ -73,8 +73,8 @@ public class SubwayController {
 		// sounds);
 		// service.insert(subway);
 		//
-		// List<Subway> subwayInfo = service.getCurrent();
-		// model.addAttribute("subwayInfo", subwayInfo);
+		 List<Subway> subwayInfo = service.getCurrent();
+		 model.addAttribute("subwayInfo", subwayInfo);
 		// // request.setAttribute("subwayInfo" , subwayInfo);
 		// }
 		return "subwayInfo";
