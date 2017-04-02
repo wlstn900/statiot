@@ -19,17 +19,26 @@
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
 
     <link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet">
+    
+    <link href="<c:url value="/resources/css/circle.css"/>" rel="stylesheet">
 
     <!-- Custom CSS -->
     <style>
         html {
             height: 100%;
         }
+        
         body {
             height: 100%;
             padding-top: 70px;
+            text-align: center;
             /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
         }
+        
+        .clearfix:before,.clearfix:after {content: " "; display: table;}
+        .clearfix:after {clear: both;}
+        .clearfix {*zoom: 1;}
+        
         .morris-hover{position:absolute;z-index:1000}
         .morris-hover.morris-default-style{border-radius:10px;padding:6px;color:white;background:rgba(0,0,0,0.6);font-family:sans-serif;font-size:16px;text-align:center}
         .morris-hover.morris-default-style .morris-hover-row-label{font-weight:bold;margin:0.25em 0;font-size:20px}
@@ -67,16 +76,83 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" style="margin: 0">
 
         <div class="row">
-            <div class="col-sm-3 text-center">
+            <div class="col-sm-4 text-center">
                 <h3 class="text-center">
                     TEMPERATURE
                 </h3>
                 <div id="line-chart"></div>
+                
+                <h3 class="text-center">
+                    AMOUNT OF TOILET PAPER
+                </h3>
+                <!-- man -->
+                <div class="clearfix">
+
+                    <img src="<c:url value="/resources/images/icon-man.png"/>" style="float: left; padding-top: 10px" />
+
+                    <div class="c100 p70 small">
+                        <span>70%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="c100 p43 small yellow">
+                        <span>43%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="c100 p12 small red">
+                        <span>12%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /man -->
+
+                <!-- woman -->
+                <div class="clearfix">
+
+                    <img src="<c:url value="/resources/images/icon-woman.png"/>" style="float: left; padding-top: 10px" />
+
+                    <div class="c100 p35 small yellow">
+                        <span>35%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="c100 p7 small red">
+                        <span>7%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="c100 p90 small">
+                        <span>90%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /woman -->
             </div>
-            <img src="<c:url value="/resources/images/subway_map2.jpg"/>" width="69%">
+            <img src="<c:url value="/resources/images/subway_map2.jpg"/>" width="66%">
         </div>
         <!-- /.row -->
 
