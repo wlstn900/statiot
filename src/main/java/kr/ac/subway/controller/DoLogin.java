@@ -30,22 +30,15 @@ public class DoLogin extends HttpServlet {
 		// TODO Auto-generated method stub
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-		String page;
+		String page=null;
 		
 		if(id.equals("admin") && password.equals("1234"))
 		{
-			SubwayController.flag=true;
 			System.out.println(id);
 			System.out.println(password);
 			request.setAttribute("id", id);
 			page="/WEB-INF/views/loginsuccess.jsp";
 		}
-		else if(  ((!(id.equals("admin"))) && password.equals("1234")) || (id.equals("admin")) && (!password.equals("1234")))
-		{
-			page="/WEB-INF/views/loginmistake.jsp";
-		}
-		else
-			page="/WEB-INF/views/loginfailed.jsp";
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		dispatcher.forward(request, response);

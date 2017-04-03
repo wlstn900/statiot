@@ -26,6 +26,7 @@ import kr.ac.subway.model.Subway;
 import kr.ac.subway.service.SubwayService;
 
 @Controller
+
 public class SubwayController {
 
 	private String temperature = "";
@@ -33,7 +34,6 @@ public class SubwayController {
 	private String ultrasonic = "";
 	private String sounds = "";
 	private SubwayService service;
-	public static boolean flag = false;
 
 	@Autowired
 	public void setSubwayService(SubwayService service) {
@@ -43,14 +43,6 @@ public class SubwayController {
 	@RequestMapping("/login")
 	public String DoLogin(Model model) {
 		return "login";
-	}
-
-	@RequestMapping("/subway")
-	public String Gosubway(Model model) {
-		if (flag == true) {
-			return "subway";
-		} else
-			return "falseAccess";
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
@@ -73,8 +65,8 @@ public class SubwayController {
 		// sounds);
 		// service.insert(subway);
 		//
-		// List<Subway> subwayInfo = service.getCurrent();
-		// model.addAttribute("subwayInfo", subwayInfo);
+		 List<Subway> subwayInfo = service.getCurrent();
+		 model.addAttribute("subwayInfo", subwayInfo);
 		// // request.setAttribute("subwayInfo" , subwayInfo);
 		// }
 		return "subwayInfo";
@@ -104,18 +96,16 @@ public class SubwayController {
 		Date dateup = new Date();
 		String date = dateup.toString();
 
-		/*if (!(temperature=="") && !(humidity=="") && !(ultrasonic=="")
+		if (!(temperature=="") && !(humidity=="") && !(ultrasonic=="")
 				&& !(sounds=="")) {
 			 Subway subway = new Subway(date, temperature, humidity, ultrasonic,
 			 sounds);
 			 service.insert(subway);
 			
-			 List<Subway> subwayInfo = service.getCurrent();
-			 System.out.println("³¥³¥");
-			 model.addAttribute("subwayInfo", subwayInfo);
+			 
 			 //request.setAttribute("subwayInfo" , subwayInfo);
 			
-		}*/
+		}
 		System.out.println("ÇöÀç ¿Âµµ : " + temperature);
 		System.out.println("ÇöÀç ½Àµµ : " + humidity);
 		System.out.println("ÇöÀç ½Ã°£ : " + date);
@@ -131,6 +121,18 @@ public class SubwayController {
 		printer(model);
 
 		return "subwayInfo";
+	}
+	
+	@RequestMapping("/subway")
+	public String DoMangement(Model model)
+	{
+		 List<Subway> subwayInfo = service.getCurrent();
+		 System.out.println("³¥³¥");
+		 
+		 for(int i=0;i<5;i++){
+			 model.addAttribute("subwayInfo"+i, subwayInfo.get(i));
+		 }
+		 return "subway";
 	}
 
 }

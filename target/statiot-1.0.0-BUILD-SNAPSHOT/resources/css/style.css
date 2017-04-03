@@ -1,0 +1,12 @@
+#area-chart,
+#line-chart,
+#bar-chart,
+#stacked,
+#pie-chart{
+  min-height: 200px;
+  background: rgba(114,219,219,0.6);
+}
+tspan[dy]{
+  stroke: black;
+  stroke-width: 0.3;
+}
