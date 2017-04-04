@@ -6,13 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
 <style>
 body {
 	background: url(<c:url value = "/resources/images/background3.jpg"/>)
-	
 		no-repeat center fixed;
 	background-size: cover;
 	text-align: center;
@@ -83,20 +81,34 @@ input::-moz-placeholder { /* Firefox 18- */
 	<![endif]-->
 </head>
 <body>
+
 	<div class="login">
 		<h1>STATIOT</h1>
 		<h3>Status Station in IoT</h3>
-		
+
 		<c:if test="${not empty logout}">
-		<div style="color:#0000ff"><h3>${logout}</h3></div>
+			<div style="color: #0000ff">
+				<h3>${logout}</h3>
+			</div>
 		</c:if>
-		
+
 		<c:if test="${not empty error}">
-		<div style="color:#ff0000"><h3>${error}</h3></div>
+			<div style="color: #ff0000">
+				<h3>${error}</h3>
+			</div>
+		</c:if>
+
+		<c:if test="${pageContext.request.userPrincipal.name !=null}">
+			<div>
+				<a href="<c:url value="/subway"/>" style="color: #ff0000" >
+				<h3>${pageContext.request.userPrincipal.name}님 환영합니다.</h3></a>
+			</div>
 		</c:if>
 		
-		<!-- <form role="form" name="loginform" id="loginform" action="/statiot/login" method="post">  -->
-		<form role="form" name="loginform" id="loginform" action="<c:url value="/login"/>" method="post">
+		<c:if test="${pageContext.request.userPrincipal.name ==null}">
+			<!-- <form role="form" name="loginform" id="loginform" action="/statiot/login" method="post"> -->
+		<form role="form" name="loginform" id="loginform"
+			action="<c:url value="/login"/>" method="post">
 			<div class="form-group">
 				<label for="user_login" class="sr-only">username</label> <input
 					type="text" name="username" class="form-control"
@@ -108,10 +120,13 @@ input::-moz-placeholder { /* Firefox 18- */
 					placeholder="password">
 			</div>
 
-			
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="submit" name="submit" id="submit" class="btn btn-default btn-block" value="LOGIN">
+
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" /> <input type="submit" name="submit"
+				id="submit" class="btn btn-default btn-block" value="LOGIN">
 		</form>
+		</c:if>
+		
 	</div>
 
 	<script src="<c:url value="/resources/js/jquery-2.1.3.js"/>"></script>

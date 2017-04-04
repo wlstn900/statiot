@@ -1,10 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ page session="false"%>
 <!DOCTYPE html>
 <html lang="en">
-
+<%-- <c:if test="${pageContext.request.userPrincipal.name!=null}"></c:if> --%>
 <head>
 
     <meta charset="utf-8">
@@ -67,7 +67,11 @@
             <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="<c:url value="/logout"/>" full-right>Logout</a></li>
+                    	<c:if test="${pageContext.request.userPrincipal.name !=null}">
+							<li><a>Welcome : ${pageContext.request.userPrincipal.name}</a></li>
+							
+							<li><a href="<c:url value="/logout"/>">Logout</a></li>
+						</c:if>
                
             </div>
             <!-- /.navbar-collapse -->

@@ -1,5 +1,6 @@
 package kr.ac.subway.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,27 +21,36 @@ public class LogController {
 	public String DoLogin(@RequestParam(value="error",required=false) String error,
 			@RequestParam(value="logout",required=false) String logout,Model model) {
 		
-		System.out.println("error : "+error+"");
+		System.out.println("error : "+error);
+		System.out.println("logout : "+logout);
 		if(error!=null){
 			model.addAttribute("error","Invalid username and password");
+			
 			return "/login";
 		}
 		
 		if(logout!=null){
 			model.addAttribute("logout","You have been logged out successfully");
+			
 			return "/login";
 		}
 		
-		return "/loginsuccess";
+		
+
+		else return "/loginsuccess";
 		
 	}
 	
-	@RequestMapping(value="/logout",method=RequestMethod.GET)
-	public String doLogout(HttpServletRequest request,HttpServletResponse response){
-		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-		if(auth!=null){
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
-		return "redirect:/?logout";
+		return "redirect:/login?logout";// You can redirect wherever you want,
+										// but generally it's a good practice to
+										// show login screen again.
 	}
 }

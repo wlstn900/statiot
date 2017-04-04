@@ -19,7 +19,7 @@
 	
 	
 	<security:http auto-config="true" use-expressions="true">
-		<security:intercept-url pattern="/**"
+		<security:intercept-url pattern="/subway/**"
 			access="hasRole('ROLE_ADMIN')" />
 		<security:form-login login-page="/login"
 			authentication-failure-url="/login?error=1" />
