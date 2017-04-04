@@ -67,8 +67,8 @@
             <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#" full-right>Log out</a>
-                </ul>
+                        <a href="<c:url value="/logout"/>" full-right>Logout</a></li>
+               
             </div>
             <!-- /.navbar-collapse -->
         </div>

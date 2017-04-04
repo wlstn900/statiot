@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +29,6 @@ import kr.ac.subway.model.Subway;
 import kr.ac.subway.service.SubwayService;
 
 @Controller
-
 public class SubwayController {
 
 	private String temperature = "";
@@ -40,11 +42,7 @@ public class SubwayController {
 		this.service = service;
 	}
 
-	@RequestMapping("/login")
-	public String DoLogin(Model model) {
-		return "login";
-	}
-
+	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String DoTemperate(HttpServletRequest request, HttpServletResponse response, Model model) // throws
 																										// ServletException,
@@ -133,6 +131,12 @@ public class SubwayController {
 			 model.addAttribute("subwayInfo"+i, subwayInfo.get(i));
 		 }
 		 return "subway";
+	}
+	
+	@RequestMapping("/survey")
+	public String survey(Model model)
+	{
+		 return "survey";
 	}
 
 }
