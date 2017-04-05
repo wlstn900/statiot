@@ -35,9 +35,7 @@ public class LogController {
 			return "/login";
 		}
 		
-		
-
-		else return "/loginsuccess";
+		return "/loginsuccess";
 		
 	}
 	
