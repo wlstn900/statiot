@@ -22,6 +22,12 @@
     
     <link href="<c:url value="/resources/css/circle.css"/>" rel="stylesheet">
 
+	<!-- icon -->
+    <link href="<c:url value="/resources/css/icon.css"/>" rel="stylesheet">
+
+	<!-- image zoom -->
+    <link href="<c:url value="/resources/css/imageviewer.css"/>" rel="stylesheet">
+
     <!-- Custom CSS -->
     <style>
         html {
@@ -80,22 +86,24 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container" style="margin: 0">
+    <div class="container-fluid">
 
         <div class="row">
-            <div class="col-sm-4 text-center">
+        	
+            <div class="col-sm-3 text-center">
+            	
                 <h3 class="text-center">
                     TEMPERATURE
                 </h3>
                 <div id="line-chart"></div>
                 
                 <h3 class="text-center">
-                    AMOUNT OF TOILET PAPER
+                    AMOUNT OF<br>TOILET PAPER
                 </h3>
                 <!-- man -->
                 <div class="clearfix">
 
-                    <img src="<c:url value="/resources/images/icon-man.png"/>" style="float: left; padding-top: 10px" />
+                    <img src="<c:url value="/resources/images/icon-man.png"/>" alt="man" style="float: left; padding-top: 10px" />
 
                     <div class="c100 p70 small">
                         <span>70%</span>
@@ -113,40 +121,24 @@
                         </div>
                     </div>
 
-                    <div class="c100 p12 small red">
-                        <span>12%</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                    </div>
-
                 </div>
                 <!-- /man -->
 
                 <!-- woman -->
                 <div class="clearfix">
 
-                    <img src="<c:url value="/resources/images/icon-woman.png"/>" style="float: left; padding-top: 10px" />
+                    <img src="<c:url value="/resources/images/icon-woman.png"/>" alt="woman" style="float: left; padding-top: 10px" />
 
-                    <div class="c100 p35 small yellow">
-                        <span>35%</span>
+                    <div class="c100 p10 small red">
+                        <span>10%</span>
                         <div class="slice">
                             <div class="bar"></div>
                             <div class="fill"></div>
                         </div>
                     </div>
 
-                    <div class="c100 p7 small red">
-                        <span>7%</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                    </div>
-
-                    <div class="c100 p90 small">
-                        <span>90%</span>
+                    <div class="c100 p65 small">
+                        <span>65%</span>
                         <div class="slice">
                             <div class="bar"></div>
                             <div class="fill"></div>
@@ -155,8 +147,45 @@
 
                 </div>
                 <!-- /woman -->
+                
             </div>
-            <img src="<c:url value="/resources/images/subway_map2.jpg"/>" width="66%">
+            
+            <div class="col-sm-7" style="padding: 0; margin-top: 20px; box-shadow: 0 0 4px #888888">
+            	<img src="<c:url value="/resources/images/subway_map2.jpg"/>" data-high-res-src="<c:url value="/resources/images/subway_map2.jpg"/>" class="pannable-image" usemap="#submap" width="100%" alt="Subway Map">
+            </div>
+            
+            <div class="col-sm-2">
+                <h3 class="text-center">
+                    EMERGENCY
+                </h3>
+                <div class="form-group">
+                    <hr>
+                    <input type="checkbox" id="checkAll"> 전체선택
+                    <button type="button" class="btn btn-default" id="confirmChecked">선택확인</button>
+                </div>
+                <div class="form-group">
+                    <hr>
+                    <label><input type="checkbox" name="chk" id="check1"> &nbsp;<i class="material-icons" style="color: #ABF200">brightness_1</i> &nbsp;통신실&nbsp;</label>
+                    <button type="submit" class="btn btn-default" id="confirm1">확인</button>
+                </div>
+                <div class="form-group">
+                    <hr>
+                    <label><input type="checkbox" name="chk" id="check2"> &nbsp;<i class="material-icons" style="color: #FFE400">brightness_1</i> &nbsp;기계실&nbsp;</label>
+                    <button type="submit" class="btn btn-default" id="confirm2">확인</button>
+                </div>
+                <div class="form-group">
+                    <hr>
+                    <label><input type="checkbox" name="chk" id="check3"> &nbsp;<i class="material-icons" style="color: #ABF200">brightness_1</i> &nbsp;전기실&nbsp;</label>
+                    <button type="submit" class="btn btn-default" id="confirm3">확인</button>
+                </div>
+                <div class="form-group">
+                    <hr>
+                    <label><input type="checkbox" name="chk" id="check4"> &nbsp;<i class="material-icons" style="color: #FF0000">brightness_1</i> &nbsp;화장실&nbsp;</label>
+                    <button type="submit" class="btn btn-default" id="confirm4">확인</button>
+                    <hr>
+                </div>
+            </div>
+            
         </div>
         <!-- /.row -->
 
@@ -169,69 +198,123 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.0/morris.min.js'></script>
+    <script src="<c:url value="/resources/js/raphael-min.js"/>"></script>
+    <script src="<c:url value="/resources/js/morris.min.js"/>"></script>
+    
+    <!-- image zoom -->
+    <script src="<c:url value="/resources/js/imageviewer.js"/>"></script>
 
     <script>
+	    
+	    var today=new Date();
+	    var time=today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	    var temp = new Array(5);
+	    var humid = new Array(5);
+	    
+	    temp[0]="${subwayInfo0.temperature}";
+	    temp[1]="${subwayInfo1.temperature}";
+	    temp[2]="${subwayInfo2.temperature}";
+	    temp[3]="${subwayInfo3.temperature}";
+	    temp[4]="${subwayInfo4.temperature}";
+	    
+	    humid[0]="${subwayInfo0.humidity}";
+	    humid[1]="${subwayInfo1.humidity}";
+	    humid[2]="${subwayInfo2.humidity}";
+	    humid[3]="${subwayInfo3.humidity}";
+	    humid[4]="${subwayInfo4.humidity}";
+	
+	    var data = [
+	      { x: time, a: temp[0], b: humid[0]},
+	      { x: time, a: temp[1], b: humid[1]},
+	      { x: time, a: temp[2], b: humid[2]},
+	      { x: time, a: temp[3], b: humid[3]},
+	      { x: time, a: temp[4], b: humid[4]}
+	    ],
+	    config = {
+	      parseTime: false,
+	      data: data,
+	      xkey: 'x',
+	      ykeys: ['a', 'b'],
+	      labels: ['Temperature', 'Humidity'],
+	      fillOpacity: 0.6,
+	      hideHover: 'auto',
+	      behaveLikeLine: true,
+	      resize: true,
+	      pointFillColors: ['white'],
+	      pointStrokeColors: ['white'],
+	      lineColors: ['red','blue']
+	    };
+	
+	    /* config.element = 'area-chart';
+	    Morris.Area(config); */
+	    config.element = 'line-chart';
+	    Morris.Line(config);
+	    /* config.element = 'bar-chart';
+	    Morris.Bar(config);
+	    config.element = 'stacked';
+	    config.stacked = true;
+	    Morris.Bar(config);
+	    Morris.Donut({
+	      element: 'pie-chart',
+	      data: [
+	        {label: "Friends", value: 30},
+	        {label: "Allies", value: 15},
+	        {label: "Enemies", value: 45},
+	        {label: "Neutral", value: 10}
+	      ]
+	    }); */
+	    
+    </script>
     
-    var today=new Date();
-    var time=today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var temp = new Array(5);
-    var humid = new Array(5);
-    
-    temp[0]="${subwayInfo0.temperature}";
-    temp[1]="${subwayInfo1.temperature}";
-    temp[2]="${subwayInfo2.temperature}";
-    temp[3]="${subwayInfo3.temperature}";
-    temp[4]="${subwayInfo4.temperature}";
-    
-    humid[0]="${subwayInfo0.humidity}";
-    humid[1]="${subwayInfo1.humidity}";
-    humid[2]="${subwayInfo2.humidity}";
-    humid[3]="${subwayInfo3.humidity}";
-    humid[4]="${subwayInfo4.humidity}";
-
-    var data = [
-      { x: time, a: temp[0], b: humid[0]},
-      { x: time, a: temp[1], b: humid[1]},
-      { x: time, a: temp[2], b: humid[2]},
-      { x: time, a: temp[3], b: humid[3]},
-      { x: time, a: temp[4], b: humid[4]}
-    ],
-    config = {
-      parseTime: false,
-      data: data,
-      xkey: 'x',
-      ykeys: ['a', 'b'],
-      labels: ['Temperature', 'Humidity'],
-      fillOpacity: 0.6,
-      hideHover: 'auto',
-      behaveLikeLine: true,
-      resize: true,
-      pointFillColors: ['white'],
-      pointStrokeColors: ['white'],
-      lineColors: ['red','blue']
-    };
-
-    /* config.element = 'area-chart';
-    Morris.Area(config); */
-    config.element = 'line-chart';
-    Morris.Line(config);
-    /* config.element = 'bar-chart';
-    Morris.Bar(config);
-    config.element = 'stacked';
-    config.stacked = true;
-    Morris.Bar(config);
-    Morris.Donut({
-      element: 'pie-chart',
-      data: [
-        {label: "Friends", value: 30},
-        {label: "Allies", value: 15},
-        {label: "Enemies", value: 45},
-        {label: "Neutral", value: 10}
-      ]
-    }); */
+    <script>
+        $(document).ready(function() {
+            $("#submap").bind("mousemove", function(e) {
+                var offset = $("#submap").offset();
+                var clickX = e.clientX - offset.left;
+                var clickY = e.clientY - offset.top;
+                if ((clickX >= 0 && clickX <= 100) && (clickY >= 0 && clickY <= 100))
+                {
+                    alert("hi");
+                } 
+            }),
+            
+            $(function () {
+                $('.pannable-image').ImageViewer();
+            }),
+            
+            $("#checkAll").click(function() {
+                if ($("#checkAll").prop("checked"))
+                    $("input[name=chk]").prop("checked", true);
+                else
+                    $("input[name=chk]").prop("checked", false);
+            }),
+            
+            $("#confirmChecked").click(function() {
+                $("#checkAll").prop("checked", false);
+                $("input[name=chk]").prop("checked", false);
+                $(this).blur();
+            }),
+            
+            $("#confirm1").click(function() {
+                $("#check1").prop("checked", false);
+                $(this).blur();
+            }),
+            
+            $("#confirm2").click(function() {
+                $("#check2").prop("checked", false);
+                $(this).blur();
+            }),
+            
+            $("#confirm3").click(function() {
+                $("#check3").prop("checked", false);
+                $(this).blur();
+            }),
+            
+            $("#confirm4").click(function() {
+                $("#check4").prop("checked", false);
+                $(this).blur();
+            });
+        });
     </script>
 
 </body>
