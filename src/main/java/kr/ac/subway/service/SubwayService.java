@@ -28,4 +28,9 @@ public class SubwayService {
 	{
 		subwayDao.insert(subway);
 	}
+
+	public String getTemperature() {
+		// TODO Auto-generated method stub
+		return subwayDao.getTemperature();
+	}
 }

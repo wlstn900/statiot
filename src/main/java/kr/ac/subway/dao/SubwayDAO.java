@@ -13,7 +13,6 @@ import kr.ac.subway.model.Subway;
 
 @Repository
 @Component
-
 public class SubwayDAO {
 
 	private JdbcTemplate jdbcTemplateObject;
@@ -44,10 +43,13 @@ public class SubwayDAO {
 		String temperature = subway.getTemperature();
 		String humidity = subway.getHumidity();
 		String ultrasonic = subway.getUltrasonic();
-		String sounds = subway.getSounds();
+		String sound1 = subway.getSound1();
+		String sound2 = subway.getSound2();
+		String sound3 = subway.getSound3();
+		String sound4 = subway.getSound4();
 		
-		String sqlStatement = "insert into subwayinfomation (date, temperature, humidity, ultrasonic, sounds) values (?,?,?,?,?)"; 
-		return (jdbcTemplateObject.update(sqlStatement, new Object[]{date, temperature, humidity, ultrasonic, sounds}/*?에 해당하는 값들임*/) == 1 );
+		String sqlStatement = "insert into subwayinfomation (date, temperature, humidity, ultrasonic, sound1, sound2, sound3, sound4) values (?,?,?,?,?,?,?,?)"; 
+		return (jdbcTemplateObject.update(sqlStatement, new Object[]{date, temperature, humidity, ultrasonic, sound1,sound2,sound3,sound4}/*?에 해당하는 값들임*/) == 1 );
 	}
 	
 	public boolean update(Subway subway)
@@ -56,16 +58,25 @@ public class SubwayDAO {
 		String temperature = subway.getTemperature();
 		String humidity = subway.getHumidity();
 		String ultrasonic = subway.getUltrasonic();
-		String sounds = subway.getSounds();
+		String sound1 = subway.getSound1();
+		String sound2 = subway.getSound2();
+		String sound3 = subway.getSound3();
+		String sound4 = subway.getSound4();
 		
-		String sqlStatement = "update subwayinfomation set temperature=?, humidity=?, ultrasonic=?, sounds=? where date=?";
-		return (jdbcTemplateObject.update(sqlStatement, new Object[]{temperature, humidity, ultrasonic, sounds, date}/*?에 해당하는 값들임*/) == 1 );//update이면 1개가 리턴이됨
+		String sqlStatement = "update subwayinfomation set temperature=?, humidity=?, ultrasonic=?, sound1=?, sound2=?, sound3=?, sound4=? where date=?";
+		return (jdbcTemplateObject.update(sqlStatement, new Object[]{temperature, humidity, ultrasonic, sound1, sound2, sound3, sound4, date}/*?에 해당하는 값들임*/) == 1 );//update이면 1개가 리턴이됨
 	}
 	
 	public boolean delete(String date)
 	{
 		String sqlStatement = "delete from subwayinfomation where date=?";
 		return (jdbcTemplateObject.update(sqlStatement, new Object[]{date})==1);
+	}
+
+	public String getTemperature() {
+		// TODO Auto-generated method stub
+		String sqlStatement = "select * from temper_humid";
+		return null;
 	}
 }
 

@@ -75,7 +75,6 @@
                     <li>
                     	<c:if test="${pageContext.request.userPrincipal.name !=null}">
 							<li><a>Welcome : ${pageContext.request.userPrincipal.name}</a></li>
-							
 							<li><a href="<c:url value="/logout"/>">Logout</a></li>
 						</c:if>
                
@@ -105,16 +104,16 @@
 
                     <img src="<c:url value="/resources/images/icon-man.png"/>" alt="man" style="float: left; padding-top: 10px" />
 
-                    <div class="c100 p70 small">
-                        <span>70%</span>
+                    <div class="c100 p${tissue.ultrasonic} small">
+                        <span>${tissue.ultrasonic}%</span>
                         <div class="slice">
                             <div class="bar"></div>
                             <div class="fill"></div>
                         </div>
                     </div>
 
-                    <div class="c100 p43 small yellow">
-                        <span>43%</span>
+                    <div class="c100 p${tissue.ultrasonic} small yellow">
+                        <span>${tissue.ultrasonic}%</span>
                         <div class="slice">
                             <div class="bar"></div>
                             <div class="fill"></div>
@@ -128,17 +127,39 @@
                 <div class="clearfix">
 
                     <img src="<c:url value="/resources/images/icon-woman.png"/>" alt="woman" style="float: left; padding-top: 10px" />
-
-                    <div class="c100 p10 small red">
-                        <span>10%</span>
+                    
+                    
+                    <c:if test="${tissue.ultrasonic<15}">
+                    	 <div class="c100 p${tissue.ultrasonic} small red">
+                   	</c:if>
+                   	<c:if test="${tissue.ultrasonic>=15&&tissue.ultrasonic<60}">
+                   		<div class="c100 p${tissue.ultrasonic} small yellow">
+                   	</c:if>
+                   	<c:if test="${tissue.ultrasonic>=60}">
+                   		<div class="c100 p${tissue.ultrasonic} small">
+                   	</c:if>
+                        <span>${tissue.ultrasonic}%</span>
                         <div class="slice">
                             <div class="bar"></div>
                             <div class="fill"></div>
                         </div>
                     </div>
-
-                    <div class="c100 p65 small">
-                        <span>65%</span>
+                   
+                    
+                     <c:if test="${tissue.ultrasonic>=15&&tissue.ultrasonic<60}">
+                    	 <div class="c100 p${tissue.ultrasonic} small yellow">
+                        <span>${tissue.ultrasonic}%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+                    </c:if>
+                    
+                    
+                    
+                    <div class="c100 p${tissue.ultrasonic} small">
+                        <span>${tissue.ultrasonic}%</span>
                         <div class="slice">
                             <div class="bar"></div>
                             <div class="fill"></div>
@@ -165,8 +186,17 @@
                 </div>
                 <div class="form-group">
                     <hr>
+                
+                    <c:if test="${subwayInfo0.sound1>=100}">
+                    <label><input type="checkbox" name="chk" id="check1"> &nbsp;<i class="material-icons" style="color: #FF0000">brightness_1</i> &nbsp;통신실&nbsp;</label>
+                    </c:if>
+                     <c:if test="${subwayInfo0.sound1<100}">
                     <label><input type="checkbox" name="chk" id="check1"> &nbsp;<i class="material-icons" style="color: #ABF200">brightness_1</i> &nbsp;통신실&nbsp;</label>
+                    </c:if>
+                   
+                    
                     <button type="submit" class="btn btn-default" id="confirm1">확인</button>
+                    
                 </div>
                 <div class="form-group">
                     <hr>
