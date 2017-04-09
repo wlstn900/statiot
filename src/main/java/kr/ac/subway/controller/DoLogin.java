@@ -28,7 +28,7 @@ public class DoLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String id = request.getParameter("id");
+		/*String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		String page=null;
 		
@@ -41,7 +41,7 @@ public class DoLogin extends HttpServlet {
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-		dispatcher.forward(request, response);
+		dispatcher.forward(request, response);*/
 
 	}
 
