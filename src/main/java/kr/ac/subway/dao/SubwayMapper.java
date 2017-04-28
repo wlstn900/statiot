@@ -16,10 +16,10 @@ public class SubwayMapper implements RowMapper<Subway> {
 		subway.setTemperature(rs.getString("temperature"));
 		subway.setHumidity(rs.getString("humidity"));
 		subway.setUltrasonic(rs.getString("ultrasonic"));
-		subway.setSound1(rs.getString("sound1"));
-		subway.setSound2(rs.getString("sound2"));
-		subway.setSound3(rs.getString("sound3"));
-		subway.setSound4(rs.getString("sound4"));
+		subway.setMen_rest_room_sound(rs.getString("men_rest_room_sound"));
+		subway.setWomen_rest_room_sound(rs.getString("women_rest_room_sound"));
+		subway.setMachine_room_sound(rs.getString("machine_room_sound"));
+		subway.setSubstation_sound(rs.getString("substation_sound"));
 		return subway;
 	}
 

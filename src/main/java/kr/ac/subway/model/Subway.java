@@ -10,36 +10,40 @@ public class Subway {
 	@NotEmpty(message="Humidity is not empty")
 	private String humidity;
 	private String ultrasonic;
-	private String sound1;
-	private String sound2;
-	private String sound3;
-	private String sound4;
+	private String men_rest_room_sound;
+	private String women_rest_room_sound;
+	private String machine_room_sound;
+	private String substation_sound;
 	
 	
 	public Subway() {
 	
 	}
-	
 
+	
 	@Override
 	public String toString() {
-		return "Subway [date=" + date + ", temperature=" + temperature + ", humidity=" + humidity + ", ultrasonic=" + ultrasonic
-				+ ", sounds=" + sound1 + "]";
+		return "Subway [date=" + date + ", temperature=" + temperature + ", humidity=" + humidity + ", ultrasonic="
+				+ ultrasonic + ", men_rest_room_sound=" + men_rest_room_sound + ", women_rest_room_sound="
+				+ women_rest_room_sound + ", machine_room_sound=" + machine_room_sound + ", substation_sound="
+				+ substation_sound + "]";
 	}
 
 
 
-	
-	public Subway(String date, String temperature, String humidity, String ultrasonic, String sound1,String sound2,
-			String sound3,String sound4) {
+
+
+
+	public Subway(String date, String temperature, String humidity, String ultrasonic, String men_rest_room_sound,String women_rest_room_sound,
+			String machine_room_sound,String substation_sound) {
 		this.date = date;
 		this.temperature = temperature;
 		this.humidity = humidity;
 		this.ultrasonic = ultrasonic;
-		this.sound1 = sound1;
-		this.sound2 = sound2;
-		this.sound3 = sound3;
-		this.sound4 = sound4;
+		this.men_rest_room_sound = men_rest_room_sound;
+		this.women_rest_room_sound = women_rest_room_sound;
+		this.machine_room_sound = machine_room_sound;
+		this.substation_sound = substation_sound;
 	}
 
 
@@ -76,43 +80,45 @@ public class Subway {
 	}
 
 
-	public String getSound1() {
-		return sound1;
+	public String getMen_rest_room_sound() {
+		return men_rest_room_sound;
 	}
 
 
-	public void setSound1(String sound1) {
-		this.sound1 = sound1;
-	}
-	
-	public String getSound2() {
-		return sound2;
+	public void setMen_rest_room_sound(String men_rest_room_sound) {
+		this.men_rest_room_sound = men_rest_room_sound;
 	}
 
 
-	public void setSound2(String sound2) {
-		this.sound2 = sound2;
+	public String getWomen_rest_room_sound() {
+		return women_rest_room_sound;
 	}
 
 
-	public String getSound3() {
-		return sound3;
+	public void setWomen_rest_room_sound(String women_rest_room_sound) {
+		this.women_rest_room_sound = women_rest_room_sound;
 	}
 
 
-	public void setSound3(String sound3) {
-		this.sound3 = sound3;
+	public String getMachine_room_sound() {
+		return machine_room_sound;
 	}
 
 
-	public String getSound4() {
-		return sound4;
+	public void setMachine_room_sound(String machine_room_sound) {
+		this.machine_room_sound = machine_room_sound;
 	}
 
 
-	public void setSound4(String sound4) {
-		this.sound4 = sound4;
+	public String getSubstation_sound() {
+		return substation_sound;
 	}
-	
+
+
+	public void setSubstation_sound(String substation_sound) {
+		this.substation_sound = substation_sound;
+	}
+
+
 	
 }

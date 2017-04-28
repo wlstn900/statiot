@@ -43,13 +43,13 @@ public class SubwayDAO {
 		String temperature = subway.getTemperature();
 		String humidity = subway.getHumidity();
 		String ultrasonic = subway.getUltrasonic();
-		String sound1 = subway.getSound1();
-		String sound2 = subway.getSound2();
-		String sound3 = subway.getSound3();
-		String sound4 = subway.getSound4();
+		String men_rest_room_sound = subway.getMen_rest_room_sound();
+		String women_rest_room_sound = subway.getWomen_rest_room_sound();
+		String machine_room_sound = subway.getMachine_room_sound();
+		String substation_sound = subway.getSubstation_sound();
 		
-		String sqlStatement = "insert into subwayinfomation (date, temperature, humidity, ultrasonic, sound1, sound2, sound3, sound4) values (?,?,?,?,?,?,?,?)"; 
-		return (jdbcTemplateObject.update(sqlStatement, new Object[]{date, temperature, humidity, ultrasonic, sound1,sound2,sound3,sound4}/*?에 해당하는 값들임*/) == 1 );
+		String sqlStatement = "insert into subwayinfomation (date, temperature, humidity, ultrasonic, men_rest_room_sound, women_rest_room_sound, machine_room_sound, substation_sound) values (?,?,?,?,?,?,?,?)"; 
+		return (jdbcTemplateObject.update(sqlStatement, new Object[]{date, temperature, humidity, ultrasonic, men_rest_room_sound,women_rest_room_sound,machine_room_sound,substation_sound}/*?에 해당하는 값들임*/) == 1 );
 	}
 	
 	public boolean update(Subway subway)
@@ -58,13 +58,13 @@ public class SubwayDAO {
 		String temperature = subway.getTemperature();
 		String humidity = subway.getHumidity();
 		String ultrasonic = subway.getUltrasonic();
-		String sound1 = subway.getSound1();
-		String sound2 = subway.getSound2();
-		String sound3 = subway.getSound3();
-		String sound4 = subway.getSound4();
+		String men_rest_room_sound = subway.getMen_rest_room_sound();
+		String women_rest_room_sound = subway.getWomen_rest_room_sound();
+		String machine_room_sound = subway.getMachine_room_sound();
+		String substation_sound = subway.getSubstation_sound();
 		
-		String sqlStatement = "update subwayinfomation set temperature=?, humidity=?, ultrasonic=?, sound1=?, sound2=?, sound3=?, sound4=? where date=?";
-		return (jdbcTemplateObject.update(sqlStatement, new Object[]{temperature, humidity, ultrasonic, sound1, sound2, sound3, sound4, date}/*?에 해당하는 값들임*/) == 1 );//update이면 1개가 리턴이됨
+		String sqlStatement = "update subwayinfomation set temperature=?, humidity=?, ultrasonic=?, men_rest_room_sound=?, women_rest_room_sound=?, machine_room_sound=?, substation_sound=? where date=?";
+		return (jdbcTemplateObject.update(sqlStatement, new Object[]{temperature, humidity, ultrasonic, men_rest_room_sound, women_rest_room_sound, machine_room_sound, substation_sound, date}/*?에 해당하는 값들임*/) == 1 );//update이면 1개가 리턴이됨
 	}
 	
 	public boolean delete(String date)

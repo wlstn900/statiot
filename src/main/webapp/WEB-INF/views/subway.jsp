@@ -187,10 +187,10 @@
                 <div class="form-group">
                     <hr>
                 
-                    <c:if test="${subwayInfo0.sound1>=100}">
+                    <c:if test="${subwayInfo0.men_rest_room_sound>=100}">
                     <label><input type="checkbox" name="chk" id="check1"> &nbsp;<i class="material-icons" style="color: #FF0000">brightness_1</i> &nbsp;통신실&nbsp;</label>
                     </c:if>
-                     <c:if test="${subwayInfo0.sound1<100}">
+                     <c:if test="${subwayInfo0.men_rest_room_sound<100}">
                     <label><input type="checkbox" name="chk" id="check1"> &nbsp;<i class="material-icons" style="color: #ABF200">brightness_1</i> &nbsp;통신실&nbsp;</label>
                     </c:if>
                    
