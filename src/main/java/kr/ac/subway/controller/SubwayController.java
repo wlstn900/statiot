@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,11 +53,13 @@ public class SubwayController {
 																										// ServletException,
 																										// //
 																										// IOException
-	{
+	
+		{
+		System.out.println("온도 습도용 프린터");
 		temperature = request.getParameter("field1").toString();
 		humidity = request.getParameter("field2").toString();
 		// String sounds = request.getParameter("field4").toString();
-		System.out.println("온도 습도용 프린터");
+		
 		printer(model);
 		// System.out.println("현재 소리 : " + sounds);
 
@@ -76,7 +79,7 @@ public class SubwayController {
 		// RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		// dispatcher.forward(request, response);
 	}
-
+	
 	@RequestMapping(value = "/ultra", method = RequestMethod.GET)
 	public String Fetch_UltraSonic(HttpServletRequest request, HttpServletResponse response, Model model) // throws
 	// ServletException, // IOException
