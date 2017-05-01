@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,10 +35,11 @@ public class SubwayController {
 	private String temperature = "";
 	private String humidity = "";
 	private String ultrasonic = "";
-	private String sound1 = "";
-	private String sound2 = "";
-	private String sound3 = "";
-	private String sound4 = "";
+	private String men_rest_room_sound= "";//남자 화장실 소리
+	private String women_rest_room_sound = "";//여자 화장실 소리
+	private String machine_room_sound = "";//기계실 소리
+	private String substation_sound = "";//변전실 소리
+	
 	private SubwayService service;
 
 	@Autowired
@@ -46,16 +48,18 @@ public class SubwayController {
 	}
 
 	
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String DoTemperate(HttpServletRequest request, HttpServletResponse response, Model model) // throws
+	@RequestMapping(value = "/tempHumid", method = RequestMethod.POST)
+	public String Fetch_Temperate(HttpServletRequest request, HttpServletResponse response, Model model) // throws
 																										// ServletException,
 																										// //
 																										// IOException
-	{
+	
+		{
+		System.out.println("온도 습도용 프린터");
 		temperature = request.getParameter("field1").toString();
 		humidity = request.getParameter("field2").toString();
 		// String sounds = request.getParameter("field4").toString();
-		System.out.println("온도 습도용 프린터");
+		
 		printer(model);
 		// System.out.println("현재 소리 : " + sounds);
 
@@ -75,9 +79,9 @@ public class SubwayController {
 		// RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		// dispatcher.forward(request, response);
 	}
-
+	
 	@RequestMapping(value = "/ultra", method = RequestMethod.GET)
-	public String DoUltraSonic(HttpServletRequest request, HttpServletResponse response, Model model) // throws
+	public String Fetch_UltraSonic(HttpServletRequest request, HttpServletResponse response, Model model) // throws
 	// ServletException, // IOException
 	{
 		ultrasonic = request.getParameter("field3").toString();
@@ -98,8 +102,8 @@ public class SubwayController {
 		String date = dateup.toString();
 
 		if (!(temperature=="") && !(humidity=="") && !(ultrasonic=="")
-				&& !(sound1=="")) {
-			 Subway subway = new Subway(date, temperature, humidity, ultrasonic,sound1,sound2,sound3,sound4);
+				&& !(men_rest_room_sound=="") && !(women_rest_room_sound=="") && !(machine_room_sound=="") && !(substation_sound=="")) {
+			 Subway subway = new Subway(date, temperature, humidity, ultrasonic, men_rest_room_sound, women_rest_room_sound, machine_room_sound, substation_sound);
 			 service.insert(subway);
 			
 			 
@@ -110,13 +114,16 @@ public class SubwayController {
 		System.out.println("현재 습도 : " + humidity);
 		System.out.println("현재 시간 : " + date);
 		System.out.println("현재 초음파 : " + ultrasonic);
-		System.out.println("현재 소리: " + sound1);
+		System.out.println("현재 남자 화장실 소리: " + men_rest_room_sound);//변경
+		System.out.println("현재 여자 화장실 소리: " + women_rest_room_sound);//변경
+		System.out.println("현재 기계실 소리: " + machine_room_sound);//변경
+		System.out.println("현재 변전실 소리: " + substation_sound);//변경
 		
 	}
 
 	@RequestMapping(value = "/sounds", method = RequestMethod.GET)
-	public String DoSounds(HttpServletRequest request, HttpServletResponse response, Model model) {
-		sound1 = request.getParameter("field4").toString();
+	public String Fetch_Sounds(HttpServletRequest request, HttpServletResponse response, Model model) {
+		men_rest_room_sound = request.getParameter("field4").toString();
 
 		printer(model);
 		
@@ -124,7 +131,7 @@ public class SubwayController {
 	}
 	
 	@RequestMapping("/subway")		//클라이언트 요청을 받아 지하철 정보데이터를 DB로부터 가져와 보내줌
-	public String DoMangement(Model model)
+	public String SubwayMangement(Model model)
 	{
 		 List<Subway> subwayInfo = service.getCurrent();
 		 
