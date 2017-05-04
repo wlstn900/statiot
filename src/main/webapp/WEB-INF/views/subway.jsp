@@ -241,17 +241,17 @@
 	    var temp = new Array(5);
 	    var humid = new Array(5);
 	    
-	    temp[0]="${subwayInfo0.temperature}";
-	    temp[1]="${subwayInfo1.temperature}";
-	    temp[2]="${subwayInfo2.temperature}";
-	    temp[3]="${subwayInfo3.temperature}";
-	    temp[4]="${subwayInfo4.temperature}";
+	    temp[0]="${tempAndHumid0.temperature}";
+	    temp[1]="${tempAndHumid1.temperature}";
+	    temp[2]="${tempAndHumid2.temperature}";
+	    temp[3]="${tempAndHumid3.temperature}";
+	    temp[4]="${tempAndHumid4.temperature}";
 	    
-	    humid[0]="${subwayInfo0.humidity}";
-	    humid[1]="${subwayInfo1.humidity}";
-	    humid[2]="${subwayInfo2.humidity}";
-	    humid[3]="${subwayInfo3.humidity}";
-	    humid[4]="${subwayInfo4.humidity}";
+	    humid[0]="${tempAndHumid0.humidity}";
+	    humid[1]="${tempAndHumid1.humidity}";
+	    humid[2]="${tempAndHumid2.humidity}";
+	    humid[3]="${tempAndHumid3.humidity}";
+	    humid[4]="${tempAndHumid4.humidity}";
 	
 	    var data = [
 	      { x: time, a: temp[0], b: humid[0]},

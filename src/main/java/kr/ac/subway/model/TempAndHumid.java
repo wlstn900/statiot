@@ -14,6 +14,10 @@ public class TempAndHumid {
 	private String code;//¿ª ÄÚµå  foreign key
 	
 	
+	public TempAndHumid() {
+		super();
+	}
+
 	public TempAndHumid(String date, String temperature, String humidity, String code) {
 		super();
 		this.date = date;

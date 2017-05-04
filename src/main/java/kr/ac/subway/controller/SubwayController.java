@@ -147,13 +147,13 @@ public class SubwayController {
 		 
 		 
 		 List<Sounds> soundList = service.getSounds();
-		 model.addAttribute("soundList", soundList.get(0));
+		 //model.addAttribute("soundList", soundList.get(0));
 		 for(int i=0;i<5;i++){
-			 model.addAttribute("soundList"+i, soundList.get(i));
+			 //model.addAttribute("soundList"+i, soundList.get(i));
 		 }
 		 
 		 List<UltraSonic> ultraSonicList = service.getUltraSonic();
-		 model.addAttribute("ultraSonic",ultraSonicList.get(0));
+		 //model.addAttribute("ultraSonic",ultraSonicList.get(0));
 		 //수정작업
 		 //String temperature=service.getTemperature();
 		
