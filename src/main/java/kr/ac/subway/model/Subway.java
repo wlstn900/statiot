@@ -1,13 +1,21 @@
 package kr.ac.subway.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+@Entity
+@Table(name="subwayInformation")
 public class Subway {
 
+	@Id
 	private String date;
-	@NotEmpty(message="Temperature is not empty")
+	//@NotEmpty(message="Temperature is not empty")
 	private String temperature;
-	@NotEmpty(message="Humidity is not empty")
+	//@NotEmpty(message="Humidity is not empty")
 	private String humidity;
 	private String ultrasonic;
 	private String men_rest_room_sound;

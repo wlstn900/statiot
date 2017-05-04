@@ -9,9 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:if test="${pageContext.request.userPrincipal.name ==null}">
+	<%-- <c:if test="${pageContext.request.userPrincipal.name ==null}"> --%>
 	<a href="${pageContext.request.contextPath}/login">지하철 상세정보를 보려면 여기를 클릭하세요.</a>
 		
-	</c:if>
+	<%-- </c:if> --%>
 </body>
 </html>
