@@ -14,6 +14,11 @@ public class UltraSonic {
 	private String code;//¿ª ÄÚµå  foreign key
 	
 	
+	public UltraSonic() {
+		super();
+	}
+
+
 	public UltraSonic(String date, String ultraSonic, String sex, String code) {
 		super();
 		this.date = date;

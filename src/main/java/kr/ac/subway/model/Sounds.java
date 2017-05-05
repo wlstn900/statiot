@@ -16,6 +16,10 @@ public class Sounds {
 	private String code;
 	
 	
+	public Sounds() {
+		super();
+	}
+
 	public Sounds(String date, String place, int dB, String code) {
 		super();
 		this.date = date;
