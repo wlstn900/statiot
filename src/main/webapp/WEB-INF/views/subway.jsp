@@ -379,13 +379,14 @@ body {
 					<c:if test="${ultraSonic_female>=60}">
 						<div class="c100 p${ultraSonic_female} small">
 					</c:if>
-					<span>${ultraSonic_female}%</span>
-					<div class="slice">
-						<div class="bar"></div>
-						<div class="fill"></div>
+						<span>${ultraSonic_female}%</span>
+						<div class="slice">
+							<div class="bar"></div>
+							<div class="fill"></div>
+						</div>
 					</div>
 
-					<%-- <c:if test="${ultraSonic_female<15}">
+					<c:if test="${ultraSonic_female<15}">
 						<div class="c100 p${ultraSonic_female} small red">
 					</c:if>
 					<c:if test="${ultraSonic_female>=15&&ultraSonic_female<60}">
@@ -393,104 +394,103 @@ body {
 					</c:if>
 					<c:if test="${ultraSonic_female>=60}">
 						<div class="c100 p${ultraSonic_female} small">
-					</c:if> --%>
-					<div class="c100 p20 small">
-					<span>20%</span>
-					<div class="slice">
-						<div class="bar"></div>
-						<div class="fill"></div>
+					</c:if>
+						<span>${ultraSonic_female}%</span>
+						<div class="slice">
+							<div class="bar"></div>
+							<div class="fill"></div>
+						</div>
 					</div>
 				</div>
+				<!-- /woman -->
+
 			</div>
-		<!-- /woman -->
 
-	</div>
+			<div class="col-sm-7"
+				style="padding: 0; margin-top: 20px; overflow: hidden; box-shadow: 0 0 4px #888888">
+				<embed id="seoulSubwayMap" type="image/svg+xml"
+					src="<c:url value="resources/images/Seoul_subway_linemap_ko.svg"/>"
+					width="200%" height="500px">
+			</div>
 
-	<div class="col-sm-7"
-		style="padding: 0; margin-top: 20px; overflow: hidden; box-shadow: 0 0 4px #888888">
-		<embed id="seoulSubwayMap" type="image/svg+xml"
-			src="<c:url value="resources/images/Seoul_subway_linemap_ko.svg"/>"
-			width="200%" height="500px">
-	</div>
-
-	<div class="col-sm-2">
-		<h3 class="text-center">EMERGENCY</h3>
-		<div class="form-group">
-			<hr>
-			<input type="checkbox" id="checkAll"> 전체선택
-			<button type="button" class="btn btn-default" id="confirmChecked">선택확인</button>
-		</div>
-		<div class="form-group">
-			<hr>
-			<c:if test="${subwayInfo0.men_rest_room_sound>=100}">
-				<label><input type="checkbox" name="chk" id="check1">
-					&nbsp;<i class="material-icons" style="color: #FF0000">brightness_1</i>
-					&nbsp;통신실&nbsp;</label>
-			</c:if>
-			<c:if test="${subwayInfo0.men_rest_room_sound<100}">
-				<label><input type="checkbox" name="chk" id="check1">
-					&nbsp;<i class="material-icons" style="color: #ABF200">brightness_1</i>
-					&nbsp;통신실&nbsp;</label>
-			</c:if>
-			<button type="submit" class="btn btn-default" id="confirm1">확인</button>
-		</div>
-		<div class="form-group">
-			<hr>
-			<label><input type="checkbox" name="chk" id="check2">
-				&nbsp;<i class="material-icons" style="color: #FFE400">brightness_1</i>
-				&nbsp;기계실&nbsp;</label>
-			<button type="submit" class="btn btn-default" id="confirm2">확인</button>
-		</div>
-		<div class="form-group">
-			<hr>
-			<label><input type="checkbox" name="chk" id="check3">
-				&nbsp;<i class="material-icons" style="color: #ABF200">brightness_1</i>
-				&nbsp;전기실&nbsp;</label>
-			<button type="submit" class="btn btn-default" id="confirm3">확인</button>
-		</div>
-		<div class="form-group">
-			<hr>
-			<label><input type="checkbox" name="chk" id="check4">
-				&nbsp;<i class="material-icons" style="color: #FF0000">brightness_1</i>
-				&nbsp;화장실&nbsp;</label>
-			<button type="submit" class="btn btn-default" id="confirm4">확인</button>
-			<hr>
-		</div>
-	</div>
-
-	</div>
-	<!-- /.row -->
-
-	<!-- popover -->
-	<div class="popover" style="z-index: 1030">
-		<h3 id="popupTitle"></h3>
-		<hr>
-		<h3 id="popupContents">popupContents</h3>
-		<button type="submit" class="btn btn-default" id="detailInfo"
-			data-toggle="modal" data-target="#myModal">상세정보</button>
-	</div>
-	<!-- /popover -->
-
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog modal-lg">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Modal Header</h4>
+			<div class="col-sm-2">
+				<h3 class="text-center">EMERGENCY</h3>
+				<div class="form-group">
+					<hr>
+					<input type="checkbox" id="checkAll"> 전체선택
+					<button type="button" class="btn btn-default" id="confirmChecked">선택확인</button>
 				</div>
-				<div class="modal-body">
-					<p>Some text in the modal.</p>
+				<div class="form-group">
+					<hr>
+					<c:if test="${subwayInfo0.men_rest_room_sound>=100}">
+						<label><input type="checkbox" name="chk" id="check1">
+							&nbsp;<i class="material-icons" style="color: #FF0000">brightness_1</i>
+							&nbsp;통신실&nbsp;</label>
+					</c:if>
+					<c:if test="${subwayInfo0.men_rest_room_sound<100}">
+						<label><input type="checkbox" name="chk" id="check1">
+							&nbsp;<i class="material-icons" style="color: #ABF200">brightness_1</i>
+							&nbsp;통신실&nbsp;</label>
+					</c:if>
+					<button type="submit" class="btn btn-default" id="confirm1">확인</button>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<div class="form-group">
+					<hr>
+					<label><input type="checkbox" name="chk" id="check2">
+						&nbsp;<i class="material-icons" style="color: #FFE400">brightness_1</i>
+						&nbsp;기계실&nbsp;</label>
+					<button type="submit" class="btn btn-default" id="confirm2">확인</button>
+				</div>
+				<div class="form-group">
+					<hr>
+					<label><input type="checkbox" name="chk" id="check3">
+						&nbsp;<i class="material-icons" style="color: #ABF200">brightness_1</i>
+						&nbsp;전기실&nbsp;</label>
+					<button type="submit" class="btn btn-default" id="confirm3">확인</button>
+				</div>
+				<div class="form-group">
+					<hr>
+					<label><input type="checkbox" name="chk" id="check4">
+						&nbsp;<i class="material-icons" style="color: #FF0000">brightness_1</i>
+						&nbsp;화장실&nbsp;</label>
+					<button type="submit" class="btn btn-default" id="confirm4">확인</button>
+					<hr>
 				</div>
 			</div>
 
 		</div>
-	</div>
+		<!-- /.row -->
+
+		<!-- popover -->
+		<div class="popover" style="z-index: 1030">
+			<h3 id="popupTitle"></h3>
+			<hr>
+			<h3 id="popupContents">popupContents</h3>
+			<button type="submit" class="btn btn-default" id="detailInfo"
+				data-toggle="modal" data-target="#myModal">상세정보</button>
+		</div>
+		<!-- /popover -->
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog modal-lg">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Modal Header</h4>
+					</div>
+					<div class="modal-body">
+						<p>Some text in the modal.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
 
 	</div>
 	<!-- /.container -->
