@@ -22,6 +22,7 @@
 			access="hasRole('ROLE_ADMIN')" />
 		<security:form-login login-page="/login"
 			authentication-failure-url="/login?error=1" />
+		<security:csrf disabled="true" />
 		<security:headers>
 			<security:frame-options policy="SAMEORIGIN" />
 		</security:headers>

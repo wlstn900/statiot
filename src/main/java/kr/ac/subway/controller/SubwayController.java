@@ -32,8 +32,11 @@ public class SubwayController {
 		this.service = service;
 	}
 
+	
+	
 	//아두이노에서 받은 온습도 데이터를 저장하는 메소드 
-	@RequestMapping(value = "/tempHumid", method = RequestMethod.POST)
+	@RequestMapping(value = "/tempHumid", method = RequestMethod.POST,
+			headers="content-type=application/x-www-form-urlencoded")
 	public void Fetch_Temperate(HttpServletRequest request, HttpServletResponse response)			// throws
 																									// ServletException,
 																									// IOException
@@ -153,6 +156,17 @@ public class SubwayController {
 		 }
 		 
 		 List<UltraSonic> ultraSonicList = service.getUltraSonic();
+		 
+		 for(int i=0;i<10;i++){
+			 if(ultraSonicList.get(i).getSex().equals("male"))
+			 {
+				 model.addAttribute("ultraSonic_male", Integer.parseInt(ultraSonicList.get(i).getUltraSonic()));
+			 }
+			 else{
+				 model.addAttribute("ultraSonic_female", Integer.parseInt(ultraSonicList.get(i).getUltraSonic()));
+			 }
+			 //model.addAttribute("soundList"+i, soundList.get(i));
+		 }
 		 //model.addAttribute("ultraSonic",ultraSonicList.get(0));
 		 //수정작업
 		 //String temperature=service.getTemperature();
