@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.ac.subway.dao.SubwayDAO;
 import kr.ac.subway.model.Sounds;
+import kr.ac.subway.model.StationInformation;
 import kr.ac.subway.model.TempAndHumid;
 import kr.ac.subway.model.UltraSonic;
 
@@ -65,4 +66,14 @@ public class SubwayService {
 	public void addUltraSonic(UltraSonic ultraSonic)	{
 		subwayDao.addUltraSonic(ultraSonic);
 	}
+	
+	public List<StationInformation> getCode(String stationName){
+		return subwayDao.getCode(stationName);
+	}
+	
+	public List<TempAndHumid> getOtherStationInformation(String code){
+		System.out.println("Service 부분 실행");
+		return subwayDao.getOtherStationInformation(code);
+	}
+	
 }

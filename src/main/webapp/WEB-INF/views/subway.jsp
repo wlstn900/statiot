@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- 날짜 형식 변경 lib -->​
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page session="false"%>
@@ -7,7 +8,7 @@
 <%-- <c:if test="${pageContext.request.userPrincipal.name!=null}"></c:if> --%>
 <head>
 
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -139,7 +140,8 @@ body {
 <script>
 	    $(document).ready(function() {
 		    var today=new Date();
-		    var time=today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+		    //var time=today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+		    var time=new Array(5);
 		    var temp = new Array(5);
 		    var humid = new Array(5);
 		    
@@ -154,13 +156,19 @@ body {
 		    humid[2]="${tempAndHumid2.humidity}";
 		    humid[3]="${tempAndHumid3.humidity}";
 		    humid[4]="${tempAndHumid4.humidity}";
-		
+		    				
+		    time[0]="${tempAndHumid0.date}";
+		    time[1]="${tempAndHumid1.date}";
+		    time[2]="${tempAndHumid2.date}";
+		    time[3]="${tempAndHumid3.date}";
+		    time[4]="${tempAndHumid4.date}"; 
+		   
 		    var data = [
-		      { x: time, a: temp[0], b: humid[0]},
-		      { x: time, a: temp[1], b: humid[1]},
-		      { x: time, a: temp[2], b: humid[2]},
-		      { x: time, a: temp[3], b: humid[3]},
-		      { x: time, a: temp[4], b: humid[4]}
+		      { x: time[0], a: temp[0], b: humid[0]},
+		      { x: time[1], a: temp[1], b: humid[1]},
+		      { x: time[2], a: temp[2], b: humid[2]},
+		      { x: time[3], a: temp[3], b: humid[3]},
+		      { x: time[4], a: temp[4], b: humid[4]}
 		    ],
 		    config = {
 		      parseTime: false,
@@ -198,7 +206,7 @@ body {
 	    });
     </script>
 
-<script>
+	<script>
     	var obj;
     	
         $(document).ready(function() {
@@ -244,15 +252,36 @@ body {
                         var leftWidth = $('#leftContent').width();
                         var titleHeight = $('nav').height(); 
                         
+                      //json 방식
+                        $.ajax({
+                            url : "/statiot/otherInfo/" + $(clickedElement).text(),
+                            dataType : "json",
+                            type : "get",
+                            //data : $('#formId').serializeArray(),
+                            success: function(data) {
+								 console.log(data);
+                            	 $('#popupTitle').html("<b>" + $(clickedElement).text() + "역</b>");
+                                 $('#popupContents').html("온도 &nbsp;:&nbsp;" +data.temperature + " ℃<br>습도 &nbsp;:&nbsp;" + data.humidity + " %<br><br>");
+                                 $('.popover').show();
+                                 $('.popover').css("left", (left + leftWidth + 60) + 'px');
+                                 $('.popover').css("top", (top + (titleHeight + 10) - (theHeight / 2)) + 'px');
+                                 
+                                 $('.modal-title').html("<b>" + $(clickedElement).text() + "역</b>");
+                                
+                            },
+                            error:function(request,status,error){
+                            	alert($(clickedElement).text()+" 역에 대한 정보가 없습니다.");
+                                //alert("code:"+request.status+"\n"+"error:"+error);
+                            } 
+                        }); 
                         
-                        
-                        $('#popupTitle').html("<b>" + $(clickedElement).text() + "역</b>");
+          /*               $('#popupTitle').html("<b>" + $(clickedElement).text() + "역</b>");
                         $('#popupContents').html("온도 &nbsp;:&nbsp; - -<br>습도 &nbsp;:&nbsp; - -<br><br>");
                         $('.popover').show();
                         $('.popover').css("left", (left + leftWidth + 60) + 'px');
                         $('.popover').css("top", (top + (titleHeight + 10) - (theHeight / 2)) + 'px');
                         
-                        $('.modal-title').html("<b>" + $(clickedElement).text() + "역</b>");
+                        $('.modal-title').html("<b>" + $(clickedElement).text() + "역</b>"); */
                         
                     } else {
                         if ($('.popover').css('display') == 'block') {

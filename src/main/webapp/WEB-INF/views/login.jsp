@@ -73,6 +73,8 @@ input::-moz-placeholder { /* Firefox 18- */
 <link href="<c:url value="/resources/css/bootstrap.min.css"/>"
 	rel="stylesheet">
 
+	<script src="<c:url value="/resources/js/jquery.js"/>"></script>
+	<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!-- [if lt IE 9]>
@@ -129,7 +131,5 @@ input::-moz-placeholder { /* Firefox 18- */
 		
 	</div>
 
-	<script src="<c:url value="/resources/js/jquery-2.1.3.js"/>"></script>
-	<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 </body>
 </html>
