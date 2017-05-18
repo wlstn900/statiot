@@ -53,8 +53,8 @@ public class SubwayController {
 	
 	
 	//아두이노에서 받은 온습도 데이터를 저장하는 메소드 
-	@RequestMapping(value = "/tempHumid", method = RequestMethod.POST,
-			headers="content-type=application/x-www-form-urlencoded")
+	@RequestMapping(value = "/tempHumid", method = RequestMethod.GET
+			/*headers="content-type=application/x-www-form-urlencoded"*/)
 	public void Fetch_Temperate(HttpServletRequest request, HttpServletResponse response)			// throws
 																									// ServletException,
 																									// IOException
@@ -116,32 +116,37 @@ public class SubwayController {
 		int dB=Integer.parseInt(request.getParameter("dB"));
 		code=request.getParameter("code").toString();
 		
-		if(place.equals("toilet"))
-		{
-			message = "\"화장실\"}";
-		}
-		else if(place.equals("machine"))
-		{
-			message = "\"기계실\"}";
-		}
 		
-		try {
-			String result = sendPost(url,parameters);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//테스트용으로 콘솔창에 찍어주는 역할
-		System.out.println("장소별 소리감지 테스트");
-		System.out.println("날짜 : "+date);
-		System.out.println("위치 : "+place);
-		System.out.println("dB값 : "+dB);		//추후 %화 할것
-		System.out.println("code :"+code);
+		if(dB>=100)
+		{//dB가 100보다 큰 경우
+			if(place.equals("toilet"))
+			{
+				message = "\"화장실\"}";
+			}
+			else if(place.equals("machine"))
+			{
+				message = "\"기계실\"}";
+			}
+			//장소가 toilet인지 machine인지 확인 하기
+			try {
+				String result = sendPost(url,parameters);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//테스트용으로 콘솔창에 찍어주는 역할
+			System.out.println("장소별 소리감지 테스트");
+			System.out.println("날짜 : "+date);
+			System.out.println("위치 : "+place);
+			System.out.println("dB값 : "+dB);		//추후 %화 할것
+			System.out.println("code :"+code);
 		
+		}
 		
 		//객체 생성후 db에 저장
 		Sounds sounds =new Sounds(date,place,dB,code);
 		service.addSounds(sounds);
+		
 	}
 
 	//테스트용으로 주석 신경 쓰지말것
