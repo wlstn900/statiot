@@ -544,6 +544,9 @@
                     <button type="submit" class="btn btn-default" id="confirm3">확인</button>
                     <hr>
                 </div>
+				<a href="#" class="btn btn-info btn-block btn-lg" style="margin: 50px 0 0 0">
+					<span class="glyphicon glyphicon-refresh"></span> &nbsp;REFRESH
+				</a>
 			</div>
 
 		</div>
