@@ -340,21 +340,27 @@
             $("#confirmChecked").click(function() {
                 $("#checkAll").prop("checked", false);
                 $("input[name=chk]").prop("checked", false);
+                $("#eIcon1").css('color', '#ABF200');
+                $("#eIcon2").css('color', '#ABF200');
+                $("#eIcon3").css('color', '#ABF200');
                 $(this).blur();
             });
             
             $("#confirm1").click(function() {
                 $("#check1").prop("checked", false);
+                $("#eIcon1").css('color', '#ABF200');
                 $(this).blur();
             });
             
             $("#confirm2").click(function() {
                 $("#check2").prop("checked", false);
+                $("#eIcon2").css('color', '#ABF200');
                 $(this).blur();
             });
             
             $("#confirm3").click(function() {
                 $("#check3").prop("checked", false);
+                $("#eIcon3").css('color', '#ABF200');
                 $(this).blur();
             });
         });
@@ -520,7 +526,7 @@
 						<c:if test="${subwayInfo0.men_rest_room_sound<100}">
 							<i class="material-icons" style="color: #ABF200">brightness_1</i>
 						</c:if> --%>
-						<i class="material-icons" style="color: #ABF200">brightness_1</i>
+						<i class="material-icons" id="eIcon1" style="color: #ABF200">brightness_1</i>
 						<span>변전실 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 					</label>
 					<button type="submit" class="btn btn-default" id="confirm1">확인</button>
@@ -529,7 +535,7 @@
                     <hr>
                     <label>
                     	<input type="checkbox" name="chk" id="check2">&nbsp;
-                    	<i class="material-icons" style="color: #FF0000">brightness_1</i>
+                    	<i class="material-icons" id="eIcon2" style="color: #FF0000">brightness_1</i>
                     	<span>기계실 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </label>
                     <button type="submit" class="btn btn-default" id="confirm2">확인</button>
@@ -538,7 +544,7 @@
                     <hr>
                     <label>
                     	<input type="checkbox" name="chk" id="check3">&nbsp;
-                    	<i class="material-icons" style="color: #ABF200">brightness_1</i>
+                    	<i class="material-icons" id="eIcon3" style="color: #ABF200">brightness_1</i>
                     	<span>화장실(여)</span>
                     </label>
                     <button type="submit" class="btn btn-default" id="confirm3">확인</button>
