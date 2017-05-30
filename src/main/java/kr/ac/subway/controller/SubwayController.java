@@ -269,6 +269,17 @@ public class SubwayController {
 		 
 		 return "subway";
 	}
+	@RequestMapping("/discomfortindex")//불쾌지수
+	public String discomfortindex(Model model)
+	{
+		List<TempAndHumid> tempAndHumidList = service.getTempAndHumid("409");
+		double Ta=Double.parseDouble(tempAndHumidList.get(tempAndHumidList.size()-1).getTemperature());
+		double RH=Double.parseDouble(tempAndHumidList.get(tempAndHumidList.size()-1).getHumidity());
+		RH=RH/100.0;
+		double DI = (double) ((9/5.0)*Ta - 0.55*(1 - RH)*((9 /5.0)*Ta - 26) + 32);
+		model.addAttribute("DI",DI);
+		 return "discomfortindex";
+	}
 	
 	@RequestMapping("/survey")//설문조사부분 필요 x 추후 추가 예정
 	public String survey(Model model)

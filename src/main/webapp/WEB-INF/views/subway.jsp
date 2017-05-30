@@ -383,11 +383,16 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><i class="fa fa-subway"></i> STATIOT</a>
+				<a class="navbar-brand" href="/statiot/subway"><i class="fa fa-subway"></i> STATIOT</a>
 				<a class="navbar-brand" href="#" style="position: absolute; width: 100%; left: 0; text-align: center; margin: 0 auto">한성대입구역</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/discomfortindex">불쾌지수</a>
+                    </li>
+                </ul>
 				<ul class="nav navbar-nav navbar-right">
 					<c:if test="${pageContext.request.userPrincipal.name != null}">
 						<li>
@@ -625,7 +630,7 @@
 	
     <footer class="footer text-center">
         <div class="container">
-            <h5 style="color: white">&copy; 2017 Synergy, Inc.</h5>
+            <h5 style="color: white">&copy; 2017 Synergy.</h5>
         </div>
     </footer>
 
