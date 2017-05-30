@@ -12,7 +12,6 @@ public class Sounds {
 	private String date;
 	private String place; //men_restroom,women_restroom,machine_room,substation
 	private double dB;
-	private boolean emergency;
 	private String code;
 	
 	
@@ -20,12 +19,11 @@ public class Sounds {
 		super();
 	}
 
-	public Sounds(String date, String place, double dB, String code,boolean emergency) {
+	public Sounds(String date, String place, double dB, String code) {
 		super();
 		this.date = date;
 		this.place = place;
 		this.dB = dB;
-		this.emergency=emergency;
 		
 	/*	if(dB>=100){	//특정 dB 이상이면 비상상황 true 아니면 false 로 수정
 			emergency=true;
@@ -61,7 +59,5 @@ public class Sounds {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
-	
 	
 }

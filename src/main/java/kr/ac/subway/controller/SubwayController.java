@@ -84,8 +84,6 @@ public class SubwayController {
 		Date dateup = new Date();
 		String date = dateup.toString();
 		
-		//초음파 센서 두개로 할껀데 하나는 여자용 다른하나는 남자용으로 sex변수 안에 male , female 넣어서 남자, 여자 화장실 구분
-		
 		ultrasonic = request.getParameter("ultrasonic").toString();
 		code=request.getParameter("code").toString();	//지하철 역 코드값 -> 아두이노에 추가해야함 ex) 409 = 당고개역 인것처럼 
 		
@@ -130,28 +128,56 @@ public class SubwayController {
 	//소리 감지 데이터값을 저장하는 메소드
 	@RequestMapping(value = "/sounds", method = RequestMethod.GET)
 	public String Fetch_Sounds(HttpServletRequest request, HttpServletResponse response) {
-		
+		   
 		Date dateup = new Date();
 		String date = dateup.toString();
 		
 		String place = request.getParameter("place").toString();
-		double dB=Double.parseDouble(request.getParameter("dB").toString());
+		//double dB=Double.parseDouble(request.getParameter("dB").toString());
+		String dB=request.getParameter("dB").toString();
 		code=request.getParameter("code").toString();
-		
 		boolean emergency=false;
 		
-		if(dB>=100)
+		System.out.println("장소별 소리감지 테스트");
+		System.out.println("날짜 : "+date);
+		System.out.println("위치 : "+place);
+		System.out.println("dB값 : "+dB);		//추후 %화 할것
+		System.out.println("code :"+code);
+		
+		if(Integer.parseInt(dB)>=100)
 		{//dB가 100보다 큰 경우
-			emergency=true;
-			if(place.equals("toilet"))
+			
+			if(place.equals("화장실"))
 			{
-				message = "\"화장실\"}";
+				//message = "\"화장실\"}";
+				//테스트용으로 콘솔창에 찍어주는 역할
+				System.out.println("장소별 소리감지 테스트");
+				System.out.println("날짜 : "+date);
+				System.out.println("위치 : "+place);
+				System.out.println("dB값 : "+dB);		//추후 %화 할것
+				System.out.println("code :"+code);
+				
+				//객체 생성후 db에 저장
+				//Sounds sounds =new Sounds(date,"화장실",dB,code,emergency);
+				//service.addSounds(sounds);
+				
 				return "redirect:/subway";
 				
 			}
-			else if(place.equals("machine"))
+			else if(place.equals("기계실"))
 			{
-				message = "\"기계실\"}";
+				//message = "\"기계실\"}";
+				//테스트용으로 콘솔창에 찍어주는 역할
+				System.out.println("장소별 소리감지 테스트");
+				System.out.println("날짜 : "+date);
+				System.out.println("위치 : "+place);
+				System.out.println("dB값 : "+dB);		//추후 %화 할것
+				System.out.println("code :"+code);
+				
+				//객체 생성후 db에 저장
+				//Sounds sounds =new Sounds(date,place,dB,code,emergency);
+				//service.addSounds(sounds);
+				
 				return "redirect:/subway";
 			}
 			//장소가 toilet인지 machine인지 확인 하기
@@ -161,18 +187,7 @@ public class SubwayController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//테스트용으로 콘솔창에 찍어주는 역할
-			System.out.println("장소별 소리감지 테스트");
-			System.out.println("날짜 : "+date);
-			System.out.println("위치 : "+place);
-			System.out.println("dB값 : "+dB);		//추후 %화 할것
-			System.out.println("code :"+code);
-			
 		}
-		
-		//객체 생성후 db에 저장
-		Sounds sounds =new Sounds(date,place,dB,code,emergency);
-		service.addSounds(sounds);
 		return null;
 	}
 
