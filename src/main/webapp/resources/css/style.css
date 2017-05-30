@@ -5,6 +5,7 @@
 #pie-chart {
     height: 200px;
     background: rgba(114, 219, 219, 0.6);
+    box-shadow: 0 0 5px rgba(114, 219, 219, 0.6);
 }
 
 tspan[dy] {
