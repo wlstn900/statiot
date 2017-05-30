@@ -1,11 +1,11 @@
-/*package kr.ac.subway.model;
+package kr.ac.subway.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ultraSonic_women")
+@Table(name = "ultrasonic_women")
 public class UltraSonic_Women {
 
 	@Id
@@ -13,7 +13,6 @@ public class UltraSonic_Women {
 	private String ultraSonic;
 	private String code;// ¿ª ÄÚµå foreign key
 
-	
 	public UltraSonic_Women() {
 		super();
 	}
@@ -50,4 +49,3 @@ public class UltraSonic_Women {
 	}
 
 }
-*/

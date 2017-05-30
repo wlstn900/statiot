@@ -1,12 +1,24 @@
 package kr.ac.subway.controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.lang.ProcessBuilder.Redirect;
+import java.net.URL;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,23 +26,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.ac.subway.model.Sounds;
 import kr.ac.subway.model.TempAndHumid;
-import kr.ac.subway.model.UltraSonic;
+import kr.ac.subway.model.UltraSonic_Men;
+import kr.ac.subway.model.UltraSonic_Women;
+import kr.ac.subway.model.User;
 import kr.ac.subway.service.SubwayService;
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Controller
 public class SubwayController {
@@ -43,7 +42,6 @@ public class SubwayController {
 	private SubwayService service;
 	private String url = "https://fcm.googleapis.com/fcm/send"; 
 	private String message = "\"변전실\"}";//"\"변전실\"}"
-	//String parameters = "{"+ "\"data\": {"+ "\"message\": \"test\""+"},"+ "\"to\": \"/topics/notice\""+"}"; 
 	private String parameters = "{\"data\": {"+"\"message\":"+message+",\"to\":\"/topics/notice\"}";
 	@Autowired
 	public void setSubwayService(SubwayService service) {
@@ -79,53 +77,82 @@ public class SubwayController {
 	}
 	
 	//아두이노에서 받은 휴지 잔여량 데이터를 저장하는 메소드 
-	@RequestMapping(value = "/ultraSonic", method = RequestMethod.GET)
-	public void Fetch_UltraSonic(HttpServletRequest request, HttpServletResponse response)
+	@RequestMapping(value = "/ultrasonic_men", method = RequestMethod.GET)
+	public void Fetch_UltraSonic_men(HttpServletRequest request, HttpServletResponse response)
 	
 	{
 		Date dateup = new Date();
 		String date = dateup.toString();
 		
 		//초음파 센서 두개로 할껀데 하나는 여자용 다른하나는 남자용으로 sex변수 안에 male , female 넣어서 남자, 여자 화장실 구분
-		String sex=request.getParameter("sex").toString();
+		
 		ultrasonic = request.getParameter("ultrasonic").toString();
 		code=request.getParameter("code").toString();	//지하철 역 코드값 -> 아두이노에 추가해야함 ex) 409 = 당고개역 인것처럼 
 		
 		//테스트용으로 콘솔창에 찍어주는 역할
-		System.out.println("남,여 화장실 잔여량 테스트");
+		System.out.println("남 화장실 잔여량 테스트");
 		System.out.println("날짜 : "+date);
-		System.out.println("성별 : "+sex);
 		System.out.println("측정치 : "+ultrasonic);		//추후 % 화 할것
+		// 현재길이 /최대길이(maxLength) * 100 을 통해 수치화 -> 최대길이 미리 측정 필요
 		System.out.println("code :"+code);
 		
-		
-		
 		//객체 생성후 db에 저장
-		UltraSonic ultraSonic=new UltraSonic(date,sex,ultrasonic,code);
-		service.addUltraSonic(ultraSonic);
+		UltraSonic_Men ultraSonic_men=new UltraSonic_Men(date, ultrasonic, code);
+		service.addUltraSonic_men(ultraSonic_men);
 	}
+	
+	//아두이노에서 받은 휴지 잔여량 데이터를 저장하는 메소드 
+		@RequestMapping(value = "/ultrasonic_women", method = RequestMethod.GET)
+		public void Fetch_UltraSonic_women(HttpServletRequest request, HttpServletResponse response)
+		
+		{
+			Date dateup = new Date();
+			String date = dateup.toString();
+			
+			//초음파 센서 두개로 할껀데 하나는 여자용 다른하나는 남자용으로 sex변수 안에 male , female 넣어서 남자, 여자 화장실 구분
+			
+			ultrasonic = request.getParameter("ultrasonic").toString();
+			code=request.getParameter("code").toString();	//지하철 역 코드값 -> 아두이노에 추가해야함 ex) 409 = 당고개역 인것처럼 
+			
+			//테스트용으로 콘솔창에 찍어주는 역할
+			System.out.println("여 화장실 잔여량 테스트");
+			System.out.println("날짜 : "+date);
+			System.out.println("측정치 : "+ultrasonic);		//추후 % 화 할것
+			// 현재길이 /최대길이(maxLength) * 100 을 통해 수치화 -> 최대길이 미리 측정 필요
+			System.out.println("code :"+code);
+			
+			//객체 생성후 db에 저장
+			UltraSonic_Women ultraSonic_Women=new UltraSonic_Women(date,ultrasonic,code);
+			service.addUltraSonic_women(ultraSonic_Women);
+		}
+		
 	
 	//소리 감지 데이터값을 저장하는 메소드
 	@RequestMapping(value = "/sounds", method = RequestMethod.GET)
-	public void Fetch_Sounds(HttpServletRequest request, HttpServletResponse response) {
+	public String Fetch_Sounds(HttpServletRequest request, HttpServletResponse response) {
 		
 		Date dateup = new Date();
 		String date = dateup.toString();
 		
 		String place = request.getParameter("place").toString();
-		int dB=Integer.parseInt(request.getParameter("dB"));
+		double dB=Double.parseDouble(request.getParameter("dB").toString());
 		code=request.getParameter("code").toString();
 		
+		boolean emergency=false;
 		
 		if(dB>=100)
 		{//dB가 100보다 큰 경우
+			emergency=true;
 			if(place.equals("toilet"))
 			{
 				message = "\"화장실\"}";
+				return "redirect:/subway";
+				
 			}
 			else if(place.equals("machine"))
 			{
 				message = "\"기계실\"}";
+				return "redirect:/subway";
 			}
 			//장소가 toilet인지 machine인지 확인 하기
 			try {
@@ -140,13 +167,13 @@ public class SubwayController {
 			System.out.println("위치 : "+place);
 			System.out.println("dB값 : "+dB);		//추후 %화 할것
 			System.out.println("code :"+code);
-		
+			
 		}
 		
 		//객체 생성후 db에 저장
-		Sounds sounds =new Sounds(date,place,dB,code);
+		Sounds sounds =new Sounds(date,place,dB,code,emergency);
 		service.addSounds(sounds);
-		
+		return null;
 	}
 
 	//테스트용으로 주석 신경 쓰지말것
@@ -182,36 +209,49 @@ public class SubwayController {
 									//Front-End 부분에서 변수 수정해주어야함!
 	public String SubwayMangement(Model model)
 	{
+		 int []placeFlag={0,0,0}; // index 0 : 화장실, 1 : 변전실 , 2: 기계실
 		
-		//온도 측정값 최신 5개로 그래프 그릴 수 있도록한다.
-		 List<TempAndHumid> tempAndHumidList = service.getTempAndHumid();
-		 for(int i=0;i<5;i++){
-			 model.addAttribute("tempAndHumid"+i, tempAndHumidList.get(i));
+		/* User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 System.out.println("username = " + user.getUsername());*/
+
+		 //온도 측정값 최신 5개로 그래프 그릴 수 있도록한다.
+		 List<TempAndHumid> tempAndHumidList = service.getTempAndHumid("409");
+		 for(int i=tempAndHumidList.size()-1;i>tempAndHumidList.size()-6;i--){
+			 model.addAttribute("tempAndHumid"+((tempAndHumidList.size()-1)-i), tempAndHumidList.get(i));
 		 }
 		 
 		 
 		 List<Sounds> soundList = service.getSounds();
-		 //model.addAttribute("soundList", soundList.get(0));
-		 for(int i=0;i<5;i++){
-			 //model.addAttribute("soundList"+i, soundList.get(i));
+		 
+		 for(int i=soundList.size()-1;i>=0;i--){
+			 if(soundList.get(i).getPlace().equals("화장실")&&placeFlag[0]==0){
+				 placeFlag[0]=1;
+				 model.addAttribute("sound0",soundList.get(i).getdB());
+			 }
+			 
+			 else if(soundList.get(i).getPlace().equals("변전실")&&placeFlag[1]==0){
+				 placeFlag[1]=1;
+				 model.addAttribute("sound1",soundList.get(i).getdB());
+			 }
+			 
+			 
+			 else if(soundList.get(i).getPlace().equals("기계실")&&placeFlag[2]==0){
+				 placeFlag[2]=1;
+				 model.addAttribute("sound2",soundList.get(i).getdB());
+			 }
+			 
+			 if(placeFlag[0]==1&&placeFlag[1]==1&&placeFlag[2]==1){
+				 break;
+			 }
 		 }
 		 
-		 List<UltraSonic> ultraSonicList = service.getUltraSonic();
+
+		 List<UltraSonic_Men> ultraSonicListForMen = service.getUltraSonicForMen();
+		 model.addAttribute("ultraSonic_men", Integer.parseInt(ultraSonicListForMen.get(0).getUltraSonic()));
 		 
-		 for(int i=0;i<10;i++){
-			 if(ultraSonicList.get(i).getSex().equals("male"))
-			 {
-				 model.addAttribute("ultraSonic_male", Integer.parseInt(ultraSonicList.get(i).getUltraSonic()));
-			 }
-			 else{
-				 model.addAttribute("ultraSonic_female", Integer.parseInt(ultraSonicList.get(i).getUltraSonic()));
-			 }
-			 //model.addAttribute("soundList"+i, soundList.get(i));
-		 }
-		 //model.addAttribute("ultraSonic",ultraSonicList.get(0));
-		 //수정작업
-		 //String temperature=service.getTemperature();
-		
+		 List<UltraSonic_Women> ultraSonicListForWomen = service.getUltraSonicForWomen();
+		 model.addAttribute("ultraSonic_women", Integer.parseInt(ultraSonicListForWomen.get(0).getUltraSonic()));
+		 
 		 return "subway";
 	}
 	
@@ -265,6 +305,5 @@ public class SubwayController {
        System.out.println(response.toString());
        return response.toString();
 }
-
 
 }

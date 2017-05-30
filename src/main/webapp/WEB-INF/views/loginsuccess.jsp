@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>${id}님 로그인에 성공하심!</h1>
+<h1>${id}님 로그인에 성공하셨습니다!</h1>
 
 <a href="${pageContext.request.contextPath}/subway">지하철 상세정보를 보려면 여기를 클릭하세요.</a>
 </body>

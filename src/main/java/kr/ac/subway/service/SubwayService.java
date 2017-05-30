@@ -9,7 +9,8 @@ import kr.ac.subway.dao.SubwayDAO;
 import kr.ac.subway.model.Sounds;
 import kr.ac.subway.model.StationInformation;
 import kr.ac.subway.model.TempAndHumid;
-import kr.ac.subway.model.UltraSonic;
+import kr.ac.subway.model.UltraSonic_Men;
+import kr.ac.subway.model.UltraSonic_Women;
 
 @Service
 public class SubwayService {
@@ -38,9 +39,9 @@ public class SubwayService {
 		return subwayDao.getTemperature();
 	}*/
 	
-	public List<TempAndHumid> getTempAndHumid()
+	public List<TempAndHumid> getTempAndHumid(String code)
 	{
-		return subwayDao.getTempAndHumid();
+		return subwayDao.getTempAndHumid(code);
 	}
 	
 
@@ -49,9 +50,15 @@ public class SubwayService {
 		return subwayDao.getSounds();
 	}
 	
-	public List<UltraSonic> getUltraSonic()
+	
+	public List<UltraSonic_Men> getUltraSonicForMen()
 	{
-		return subwayDao.getUltraSonic();
+		return subwayDao.getUltraSonicForMen();
+	}
+	
+	public List<UltraSonic_Women> getUltraSonicForWomen()
+	{
+		return subwayDao.getUltraSonicForWomen();
 	}
 	
 	public void addSounds(Sounds sounds)
@@ -63,8 +70,12 @@ public class SubwayService {
 		subwayDao.addTempAndHumid(tempAndHumid);
 	}
 	
-	public void addUltraSonic(UltraSonic ultraSonic)	{
-		subwayDao.addUltraSonic(ultraSonic);
+	public void addUltraSonic_men(UltraSonic_Men ultraSonic)	{
+		subwayDao.addUltraSonic_men(ultraSonic);
+	}
+	
+	public void addUltraSonic_women(UltraSonic_Women ultraSonic)	{
+		subwayDao.addUltraSonic_women(ultraSonic);
 	}
 	
 	public List<StationInformation> getCode(String stationName){

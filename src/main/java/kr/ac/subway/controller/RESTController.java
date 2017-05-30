@@ -44,7 +44,6 @@ public class RESTController {
 		System.out.println("½Àµµ : "+tempAndHumid.getHumidity());
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=UTF-8");
-		//return new ResponseEntity<TempAndHumid>(tempAndHumid, headers, HttpStatus.OK);
 		return new ResponseEntity<TempAndHumid>(tempAndHumid,headers,HttpStatus.OK);
 		
     }

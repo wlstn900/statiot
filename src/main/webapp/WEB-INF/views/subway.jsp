@@ -167,6 +167,8 @@
 	
 	<script src="<c:url value="/resources/js/svg-pan-zoom.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/thumbnailViewer.js"/>"></script>
+	<script src="<c:url value="/resources/js/hammer.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.hammer.js"/>"></script>
 	
 	<script>
 	    $(document).ready(function() {
@@ -176,23 +178,23 @@
 		    var temp = new Array(5);
 		    var humid = new Array(5);
 		    
-		    temp[0] = "${tempAndHumid0.temperature}";
-		    temp[1] = "${tempAndHumid1.temperature}";
+		    temp[0] = "${tempAndHumid4.temperature}";
+		    temp[1] = "${tempAndHumid3.temperature}";
 		    temp[2] = "${tempAndHumid2.temperature}";
-		    temp[3] = "${tempAndHumid3.temperature}";
-		    temp[4] = "${tempAndHumid4.temperature}";
+		    temp[3] = "${tempAndHumid1.temperature}";
+		    temp[4] = "${tempAndHumid0.temperature}";
 		    
-		    humid[0] = "${tempAndHumid0.humidity}";
-		    humid[1] = "${tempAndHumid1.humidity}";
+		    humid[0] = "${tempAndHumid4.humidity}";
+		    humid[1] = "${tempAndHumid3.humidity}";
 		    humid[2] = "${tempAndHumid2.humidity}";
-		    humid[3] = "${tempAndHumid3.humidity}";
-		    humid[4] = "${tempAndHumid4.humidity}";
+		    humid[3] = "${tempAndHumid1.humidity}";
+		    humid[4] = "${tempAndHumid0.humidity}";
 		    				
-		    time[0] = "${tempAndHumid0.date}";
-		    time[1] = "${tempAndHumid1.date}";
+		    time[0] = "${tempAndHumid4.date}";
+		    time[1] = "${tempAndHumid3.date}";
 		    time[2] = "${tempAndHumid2.date}";
-		    time[3] = "${tempAndHumid3.date}";
-		    time[4] = "${tempAndHumid4.date}"; 
+		    time[3] = "${tempAndHumid1.date}";
+		    time[4] = "${tempAndHumid0.date}"; 
 		   
 		    var data = [
 		      { x: time[0], a: temp[0], b: humid[0]},
@@ -206,7 +208,7 @@
 		      data: data,
 		      xkey: 'x',
 		      ykeys: ['a', 'b'],
-		      labels: ['Temperature', 'Humidity'],
+		      labels: ['온도', '습도'],
 		      fillOpacity: 0.6,
 		      hideHover: 'auto',
 		      behaveLikeLine: true,
@@ -245,9 +247,9 @@
                 obj = svgPanZoom('#seoulSubwayMap');
 
                 obj.pan({x: 0, y: 0});
-                obj.zoomAtPointBy(1.455, {x: $('#mainViewContainer').width()/2, y: 0});
+                obj.zoomAtPointBy(1.4, {x: $('#mainViewContainer').width()/2, y: 0});
                 obj.setZoomScaleSensitivity(0.4);
-                obj.setMinZoom(1.455);
+                obj.setMinZoom(1.4);
                 obj.setMaxZoom(15);
                 obj.setOnPan(function(e) {
                     if ($('.popover').css('display') == 'block') {
@@ -285,7 +287,6 @@
 	                        var left = evt.clientX;
 	                        var top = evt.clientY;
 	                        var theHeight = $('.popover').height();
-	                        var leftWidth = $('#leftContent').width();
 	                        var titleHeight = $('nav').height(); 
 	                        
 	                      	// json 방식
@@ -306,7 +307,7 @@
 									}
 									$('#popupContents').html("온도 &nbsp;:&nbsp;" + data.temperature + " ℃<br>습도 &nbsp;:&nbsp;" + data.humidity + " %<br><br>");
 									$('.popover').show();
-									$('.popover').css("left", (left + leftWidth + 60) + 'px');
+									$('.popover').css("left", (left + 60) + 'px');
 									$('.popover').css("top", (top + (titleHeight + 10) - (theHeight / 2)) + 'px');
 									
 									$('.modal-title').html("<b>" + $(clickedElement).text() + "</b>");
@@ -329,6 +330,8 @@
                     }   
                 }
             });
+        	
+        	/* var hm = $("#seoulSubwayMap").hammer(); */
         	
             $("#checkAll").click(function() {
                 if ($("#checkAll").prop("checked"))
@@ -381,16 +384,17 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="#"><i class="fa fa-subway"></i> STATIOT</a>
+				<a class="navbar-brand" href="#" style="position: absolute; width: 100%; left: 0; text-align: center; margin: 0 auto">한성대입구역</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
 					<c:if test="${pageContext.request.userPrincipal.name != null}">
 						<li>
-							<a href="#"><span class="glyphicon glyphicon-user"></span> Welcome ${pageContext.request.userPrincipal.name}</a>
+							<a href="#"><span class="glyphicon glyphicon-user"></span> ${pageContext.request.userPrincipal.name} 님</a>
 						</li>
 						<li>
-							<a href="<c:url value="/logout"/>"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+							<a href="<c:url value="/logout"/>"><span class="glyphicon glyphicon-log-out"></span> 로그아웃</a>
 						</li>
 					</c:if>
 				</ul>
@@ -404,48 +408,59 @@
 	<div class="container-fluid" id="wrap">
 
 		<div class="row" id="content">
+		
+			<div class="col-sm-7">
+				<div style="margin-top: 20px; overflow: hidden; box-shadow: 0 0 4px #888888">
+					<embed id="seoulSubwayMap" type="image/svg+xml"
+						src="<c:url value="resources/images/Seoul_subway_linemap_ko.svg"/>"
+						width="200%" height="500px">
+				</div>
+			</div>
 
-			<div class="col-sm-3 text-center" id="leftContent">
+			<div class="col-sm-3 text-center">
 
-				<h3 class="text-center">TEMPERATURE</h3>
+				<h3 class="text-center">
+					<b>온도와 습도</b>
+				</h3>
 				<div id="line-chart"></div>
 
 				<h3 class="text-center">
-					AMOUNT OF<br>TOILET PAPER
+					<br>
+					<b>화장실 휴지 잔량</b>
 				</h3>
 				<!-- man -->
 				<div class="clearfix">
 
 					<img class="col-sm-3 col-xs-4" src="<c:url value="/resources/images/icon-man.png"/>"
-						alt="man" style="width: 70px; padding: 5px 0 0 0" />
+						alt="man" style="width: 70px; padding: 5px 0 0 0; float: left" />
 
-					<div class="col-sm-9 col-xs-8">
-						<c:if test="${ultraSonic_male<15}">
-							<div class="c100 p${ultraSonic_male} small red">
+					<div class="col-sm-9 col-xs-8" style="float: right">
+						<c:if test="${ultraSonic_men<15}">
+							<div class="c100 p${ultraSonic_men} small red">
 						</c:if>
-						<c:if test="${ultraSonic_male>=15&&ultraSonic_male<60}">
-							<div class="c100 p${ultraSonic_male} small yellow">
+						<c:if test="${ultraSonic_men>=15&&ultraSonic_men<60}">
+							<div class="c100 p${ultraSonic_men} small yellow">
 						</c:if>
-						<c:if test="${ultraSonic_male>=60}">
-							<div class="c100 p${ultraSonic_male} small">
+						<c:if test="${ultraSonic_men>=60}">
+							<div class="c100 p${ultraSonic_men} small">
 						</c:if>
-							<span>${ultraSonic_male}%</span>
+							<span>${ultraSonic_men}%</span>
 							<div class="slice">
 								<div class="bar"></div>
 								<div class="fill"></div>
 							</div>
 						</div>
 	
-						<c:if test="${ultraSonic_male<15}">
-							<div class="c100 p${ultraSonic_male} small red">
+						<c:if test="${ultraSonic_men<15}">
+							<div class="c100 p${ultraSonic_men} small red">
 						</c:if>
-						<c:if test="${ultraSonic_male>=15&&ultraSonic_male<60}">
-							<div class="c100 p${ultraSonic_male} small yellow">
+						<c:if test="${ultraSonic_men>=15&&ultraSonic_men<60}">
+							<div class="c100 p${ultraSonic_men} small yellow">
 						</c:if>
-						<c:if test="${ultraSonic_male>=60}">
-							<div class="c100 p${ultraSonic_male} small">
+						<c:if test="${ultraSonic_men>=60}">
+							<div class="c100 p${ultraSonic_men} small">
 						</c:if>
-							<span>${ultraSonic_male}%</span>
+							<span>${ultraSonic_men}%</span>
 							<div class="slice">
 								<div class="bar"></div>
 								<div class="fill"></div>
@@ -460,35 +475,35 @@
 				<div class="clearfix">
 
 					<img class="col-sm-3 col-xs-4" src="<c:url value="/resources/images/icon-woman.png"/>"
-						alt="woman" style="width: 70px; padding: 5px 0 0 0" />
+						alt="woman" style="width: 70px; padding: 5px 0 0 0; float: left" />
 
-					<div class="col-sm-9 col-xs-8">
-						<c:if test="${ultraSonic_female<15}">
-							<div class="c100 p${ultraSonic_female} small red">
+					<div class="col-sm-9 col-xs-8" style="float: right">
+						<c:if test="${ultraSonic_women<15}">
+							<div class="c100 p${ultraSonic_women} small red">
 						</c:if>
-						<c:if test="${ultraSonic_female>=15&&ultraSonic_female<60}">
-							<div class="c100 p${ultraSonic_female} small yellow">
+						<c:if test="${ultraSonic_women>=15&&ultraSonic_women<60}">
+							<div class="c100 p${ultraSonic_women} small yellow">
 						</c:if>
-						<c:if test="${ultraSonic_female>=60}">
-							<div class="c100 p${ultraSonic_female} small">
+						<c:if test="${ultraSonic_women>=60}">
+							<div class="c100 p${ultraSonic_women} small">
 						</c:if>
-							<span>${ultraSonic_female}%</span>
+							<span>${ultraSonic_women}%</span>
 							<div class="slice">
 								<div class="bar"></div>
 								<div class="fill"></div>
 							</div>
 						</div>
 
-						<c:if test="${ultraSonic_female<15}">
-							<div class="c100 p${ultraSonic_female} small red">
+						<c:if test="${ultraSonic_women<15}">
+							<div class="c100 p${ultraSonic_women} small red">
 						</c:if>
-						<c:if test="${ultraSonic_female>=15&&ultraSonic_female<60}">
-							<div class="c100 p${ultraSonic_female} small yellow">
+						<c:if test="${ultraSonic_women>=15&&ultraSonic_women<60}">
+							<div class="c100 p${ultraSonic_women} small yellow">
 						</c:if>
-						<c:if test="${ultraSonic_female>=60}">
-							<div class="c100 p${ultraSonic_female} small">
+						<c:if test="${ultraSonic_women>=60}">
+							<div class="c100 p${ultraSonic_women} small">
 						</c:if>
-							<span>${ultraSonic_female}%</span>
+							<span>${ultraSonic_women}%</span>
 							<div class="slice">
 								<div class="bar"></div>
 								<div class="fill"></div>
@@ -501,57 +516,59 @@
 
 			</div>
 
-			<div class="col-sm-7"
-				style="padding: 0; margin-top: 20px; overflow: hidden; box-shadow: 0 0 4px #888888">
-				<embed id="seoulSubwayMap" type="image/svg+xml"
-					src="<c:url value="resources/images/Seoul_subway_linemap_ko.svg"/>"
-					width="200%" height="500px">
-			</div>
-
 			<div class="col-sm-2">
-				<h3 class="text-center">EMERGENCY</h3>
+				<h3 class="text-center">
+					<b>돌발 상황<br></b>
+					[소리 감지]
+				</h3>
 				<div class="form-group">
 					<hr>
-					<input type="checkbox" id="checkAll">
-					<span>전체선택 &nbsp;&nbsp;&nbsp;</span>
-					<button type="button" class="btn btn-default" id="confirmChecked">선택확인</button>
+					<label style="float: left">
+						<input type="checkbox" id="checkAll">
+						<span>&nbsp;전체선택</span>
+					</label>
+					<button type="button" class="btn btn-default" id="confirmChecked" style="float: right">선택확인</button>
+					<br style="clear: both">
 				</div>
 				<div class="form-group">
 					<hr>
-					<label>
+					<label style="float: left">
 						<input type="checkbox" name="chk" id="check1">&nbsp;
-						<%-- <c:if test="${subwayInfo0.men_rest_room_sound>=100}">
-							<i class="material-icons" style="color: #FF0000">brightness_1</i>
+						<c:if test="${sound0>=100}">
+							<i class="material-icons" id="eIcon1" style="color: #FF0000">brightness_1</i>
 						</c:if>
-						<c:if test="${subwayInfo0.men_rest_room_sound<100}">
-							<i class="material-icons" style="color: #ABF200">brightness_1</i>
-						</c:if> --%>
-						<i class="material-icons" id="eIcon1" style="color: #ABF200">brightness_1</i>
-						<span>변전실 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+						<c:if test="${sound0<100}">
+							<i class="material-icons" id="eIcon1" style="color: #ABF200">brightness_1</i>
+						</c:if>
+						<!-- <i class="material-icons" id="eIcon1" style="color: #ABF200">brightness_1</i>	 -->
+						<span>&nbsp;변전실</span>
 					</label>
-					<button type="submit" class="btn btn-default" id="confirm1">확인</button>
+					<button type="submit" class="btn btn-default" id="confirm1" style="float: right">확인</button>
+					<br style="clear: both">
 				</div>
                 <div class="form-group">
                     <hr>
-                    <label>
+                    <label style="float: left">
                     	<input type="checkbox" name="chk" id="check2">&nbsp;
                     	<i class="material-icons" id="eIcon2" style="color: #FF0000">brightness_1</i>
-                    	<span>기계실 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    	<span>&nbsp;기계실</span>
                     </label>
-                    <button type="submit" class="btn btn-default" id="confirm2">확인</button>
+                    <button type="submit" class="btn btn-default" id="confirm2" style="float: right">확인</button>
+                    <br style="clear: both">
                 </div>
                 <div class="form-group">
                     <hr>
-                    <label>
+                    <label style="float: left">
                     	<input type="checkbox" name="chk" id="check3">&nbsp;
                     	<i class="material-icons" id="eIcon3" style="color: #ABF200">brightness_1</i>
-                    	<span>화장실(여)</span>
+                    	<span>&nbsp;화장실(여)</span>
                     </label>
-                    <button type="submit" class="btn btn-default" id="confirm3">확인</button>
+                    <button type="submit" class="btn btn-default" id="confirm3" style="float: right">확인</button>
+                    <br style="clear: both">
                     <hr>
                 </div>
-				<a href="#" class="btn btn-info btn-block btn-lg" style="margin: 50px 0 0 0">
-					<span class="glyphicon glyphicon-refresh"></span> &nbsp;REFRESH
+				<a href="#" class="btn btn-info btn-block btn-lg" style="margin: 50px 0 20px 0">
+					<span class="glyphicon glyphicon-refresh"></span> &nbsp;새로고침
 				</a>
 			</div>
 
@@ -608,7 +625,7 @@
 	
     <footer class="footer text-center">
         <div class="container">
-            <h5 style="color: white">Copyright &copy; Synergy 2017</h5>
+            <h5 style="color: white">&copy; 2017 Synergy, Inc.</h5>
         </div>
     </footer>
 

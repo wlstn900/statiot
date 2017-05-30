@@ -1,22 +1,20 @@
-/*package kr.ac.subway.model;
+package kr.ac.subway.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ultraSonic_men")
+@Table(name="ultrasonic_men")
 public class UltraSonic_Men {
 	@Id
 	private String date;
 	private String ultraSonic;
 	private String code;//¿ª ÄÚµå  foreign key
 	
-	
 	public UltraSonic_Men() {
 		super();
 	}
-
 
 	public UltraSonic_Men(String date, String ultraSonic, String code) {
 		super();
@@ -54,9 +52,4 @@ public class UltraSonic_Men {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
-	
-	
-
 }
-*/

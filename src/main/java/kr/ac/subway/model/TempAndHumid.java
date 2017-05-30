@@ -5,13 +5,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tempAndHumid")
+@Table(name="tempandhumid")
 public class TempAndHumid {
 	@Id
 	private String date;
+
+	private String code;//开 内靛  foreign key
 	private String temperature;
 	private String humidity;
-	private String code;//开 内靛  foreign key
+	
 	
 	
 	public TempAndHumid() {

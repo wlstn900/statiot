@@ -13,7 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.ac.subway.model.Sounds;
 import kr.ac.subway.model.StationInformation;
 import kr.ac.subway.model.TempAndHumid;
-import kr.ac.subway.model.UltraSonic;
+import kr.ac.subway.model.UltraSonic_Men;
+import kr.ac.subway.model.UltraSonic_Women;
 
 @Repository
 @Transactional
@@ -81,9 +82,9 @@ public class SubwayDAO {
 
 	// 온도 습도를 DB에서 가져와 List에 저장
 	@SuppressWarnings("unchecked")
-	public List<TempAndHumid> getTempAndHumid() {
+	public List<TempAndHumid> getTempAndHumid(String code) {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from TempAndHumid");
+		Query query = session.createQuery("from TempAndHumid where code='" + code + "'");
 
 		List<TempAndHumid> TempAndHumidList = query.list();
 
@@ -103,13 +104,24 @@ public class SubwayDAO {
 
 	// 휴지 잔여량을 DB에서 가져와 List에 저장
 	@SuppressWarnings("unchecked")
-	public List<UltraSonic> getUltraSonic() {
+	public List<UltraSonic_Men> getUltraSonicForMen() {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from UltraSonic");
+		Query query = session.createQuery("from UltraSonic_Men");
 
-		List<UltraSonic> UltraSonicList = query.list();
+		List<UltraSonic_Men> UltraSonicListForMen = query.list();
 
-		return UltraSonicList;
+		return UltraSonicListForMen;
+	}
+
+	// 휴지 잔여량을 DB에서 가져와 List에 저장
+	@SuppressWarnings("unchecked")
+	public List<UltraSonic_Women> getUltraSonicForWomen() {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from UltraSonic_Women");
+
+		List<UltraSonic_Women> UltraSonicListForWomen = query.list();
+
+		return UltraSonicListForWomen;
 	}
 
 	public void addSounds(Sounds sounds) {
@@ -124,24 +136,30 @@ public class SubwayDAO {
 		session.flush();
 	}
 
-	public void addUltraSonic(UltraSonic ultraSonic) {
+	public void addUltraSonic_men(UltraSonic_Men ultraSonic) {
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(ultraSonic);
 		session.flush();
 	}
+	
+	public void addUltraSonic_women(UltraSonic_Women ultraSonic) {
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(ultraSonic);
+		session.flush();
+	}
+	
 
 	@SuppressWarnings("unchecked")
 	public List<StationInformation> getCode(String stationName) {
 		Session session = sessionFactory.getCurrentSession();
-		 Query query=session.createQuery("from StationInformation where name='"+stationName+"'");
+		Query query = session.createQuery("from StationInformation where name='" + stationName + "'");
 
-		//Query query = session.createQuery("from StationInformation");
-		
+		// Query query = session.createQuery("from StationInformation");
 
 		List<StationInformation> stationInformations = query.list();
 
 		return stationInformations;
-		
+
 		/*
 		 * List<Integer>
 		 * 
@@ -149,16 +167,15 @@ public class SubwayDAO {
 		 */
 	}
 
-
 	public List<TempAndHumid> getOtherStationInformation(String code) {
 		Session session = sessionFactory.getCurrentSession();
-		 Query query=session.createQuery("from TempAndHumid where code ="+code);
-		 
-		 List<TempAndHumid> TempAndHumids = query.list();
-		 //query.setString("code", code);
-		 System.out.println("DAO 부분 ");
-		 //return (TempAndHumid)query.uniqueResult();
-		 return TempAndHumids;
+		Query query = session.createQuery("from TempAndHumid where code =" + code);
+
+		List<TempAndHumid> TempAndHumids = query.list();
+		// query.setString("code", code);
+		System.out.println("DAO 부분 ");
+		// return (TempAndHumid)query.uniqueResult();
+		return TempAndHumids;
 	}
 
 }
